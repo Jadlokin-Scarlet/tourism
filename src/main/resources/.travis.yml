@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - oraclejdk8
+  - openjdk8
+notifications:
+  email:
+    recipients:
+      - w545459363@126.com
+    on_success: always # default: change
+    on_failure: always # default: always
