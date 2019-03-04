@@ -38,4 +38,8 @@ public class UserService {
 		return userMapper.selectByUserId(userId);
 	}
 
+	@Transactional
+	public List<User> getUsers(){
+		return userMapper.selectByUserSelective(new User());
+	}
 }
