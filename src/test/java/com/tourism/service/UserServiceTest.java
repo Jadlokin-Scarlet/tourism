@@ -12,15 +12,12 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceTest {
 
-	private UserService userService;
-
 	@Autowired
-	public UserServiceTest(UserService userService) {
-		this.userService = userService;
-	}
+	private UserService userService;
 
 	@Test
 	public void login() {
 		System.out.println(userService.login(new User()));
 	}
+
 }
