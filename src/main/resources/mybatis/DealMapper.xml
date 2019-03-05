@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tourism.mapper.DealMapper" >
+  <resultMap id="BaseResultMap" type="com.tourism.entity.Deal" >
+    <id column="deal_id" property="dealId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="deal_name" property="dealName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    deal_id, type_id, area_id, deal_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from deal
+    where deal_id = #{dealId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from deal
+    where deal_id = #{dealId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tourism.entity.Deal" >
+    insert into deal (deal_id, type_id, area_id, 
+      deal_name)
+    values (#{dealId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, 
+      #{dealName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tourism.entity.Deal" >
+    insert into deal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dealId != null" >
+        deal_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="dealName != null" >
+        deal_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dealId != null" >
+        #{dealId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="dealName != null" >
+        #{dealName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.Deal" >
+    update deal
+    <set >
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="dealName != null" >
+        deal_name = #{dealName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where deal_id = #{dealId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tourism.entity.Deal" >
+    update deal
+    set type_id = #{typeId,jdbcType=INTEGER},
+      area_id = #{areaId,jdbcType=INTEGER},
+      deal_name = #{dealName,jdbcType=VARCHAR}
+    where deal_id = #{dealId,jdbcType=INTEGER}
+  </update>
+</mapper>

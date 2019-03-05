@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Service
 public class UserService {
@@ -22,24 +26,28 @@ public class UserService {
 
 	private Logger logger = LoggerFactory.getLogger(UserService.class);
 
-	@Transactional
-	public User login(User user){
-		List<User> users = userMapper.selectByUserSelective(user);
-		assert users.size()<2;
-		if(users.size() == 0){
-			logger.info(user.getUserName()+"   "+user.getUserPassword() + "登陆失败，用户名密码不存在");
-			return null;
-		}
-		return users.get(0);
-	}
+//	@Transactional
+//	public User login(User user){
+//		List<User> users = userMapper.selectByUserSelective(user);
+//		assert users.size()<2;
+//		if(users.size() == 0){
+//			logger.info(user.getUserName()+"   "+user.getUserPassword() + "登陆失败，用户名密码不存在");
+//			return null;
+//		}
+//		return users.get(0);
+//	}
+
+//	@Transactional
+//	public User getUser(int userId){
+//		return userMapper.selectByUserId(userId);
+//	}
 
 	@Transactional
-	public User getUser(int userId){
-		return userMapper.selectByUserId(userId);
+	public List<User> getUsers(int size){
+		List<User> userList = IntStream.range(1, size).boxed()
+				.map(userId -> userMapper.selectByPrimaryKey(userId))
+				.collect(Collectors.toList());
+		return userList;
 	}
 
-	@Transactional
-	public List<User> getUsers(){
-		return userMapper.selectByUserSelective(new User());
-	}
 }

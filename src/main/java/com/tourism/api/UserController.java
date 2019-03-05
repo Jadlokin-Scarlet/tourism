@@ -21,8 +21,8 @@ public class UserController {
 	}
 
 	@GetMapping("")
-	public List<User> login(){
-		return userService.getUsers();
+	public List<User> getUserExample(){
+		return userService.getUsers(10);
 	}
 
 }

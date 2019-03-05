@@ -4,10 +4,14 @@ import java.util.Date;
 
 public class User {
     private Integer userId;
+
     private String userName;
-    private String userPassword;
+
     private Date userCreateTime;
+
     private Date userUpdateTime;
+
+    private String userPassword;
 
     public Integer getUserId() {
         return userId;
@@ -16,11 +20,13 @@ public class User {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
     public String getUserName() {
         return userName;
     }
+
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public Date getUserCreateTime() {
@@ -75,10 +81,10 @@ public class User {
         }
         User other = (User) that;
         return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-                && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
-                && (this.getUserCreateTime() == null ? other.getUserCreateTime() == null : this.getUserCreateTime().equals(other.getUserCreateTime()))
-                && (this.getUserUpdateTime() == null ? other.getUserUpdateTime() == null : this.getUserUpdateTime().equals(other.getUserUpdateTime()))
-                && (this.getUserPassword() == null ? other.getUserPassword() == null : this.getUserPassword().equals(other.getUserPassword()));
+            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+            && (this.getUserCreateTime() == null ? other.getUserCreateTime() == null : this.getUserCreateTime().equals(other.getUserCreateTime()))
+            && (this.getUserUpdateTime() == null ? other.getUserUpdateTime() == null : this.getUserUpdateTime().equals(other.getUserUpdateTime()))
+            && (this.getUserPassword() == null ? other.getUserPassword() == null : this.getUserPassword().equals(other.getUserPassword()));
     }
 
     @Override

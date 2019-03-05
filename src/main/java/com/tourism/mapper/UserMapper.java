@@ -2,17 +2,18 @@ package com.tourism.mapper;
 
 import com.tourism.entity.User;
 import org.springframework.stereotype.Repository;
-//import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 @Repository
 public interface UserMapper {
+    int deleteByPrimaryKey(Integer userId);
 
-    List<User> selectByUserSelective(User user);
+    int insert(User record);
 
-    User selectByUserId(int userId);
+    int insertSelective(User record);
 
-//    User selectByUser(int id);
+    User selectByPrimaryKey(Integer userId);
 
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
 }
