@@ -43,8 +43,8 @@ public class UserService {
 //	}
 
 	@Transactional
-	public List<User> getUsers(int size){
-		List<User> userList = IntStream.range(1, size).boxed()
+	public List<User> getUsers(int limit){
+		List<User> userList = IntStream.range(1, limit).boxed()
 				.map(userId -> userMapper.selectByPrimaryKey(userId))
 				.collect(Collectors.toList());
 		return userList;

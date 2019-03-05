@@ -8,3 +8,13 @@ notifications:
       - w545459363@126.com
     on_success: always # default: change
     on_failure: always # default: always
+env:
+  global:
+    - "SFTP_USER=[root]"
+    - "SFTP_PASSWORD=[]"
+
+deploy:
+  provider: script
+  script: run.sh
+  on:
+    branch: restful
