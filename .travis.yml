@@ -8,10 +8,20 @@ notifications:
       - w545459363@126.com
     on_success: always # default: change
     on_failure: always # default: always
+
+dist: xenial
+
 env:
   global:
-    - "SFTP_USER=[root]"
-    - "SFTP_PASSWORD=[]"
+    - 'SFTP_USER=[user]'
+    - 'SFTP_PASSWORD=[password]'
+    - 'SFTP_KEY=[base64-encoded-rsa-key]'
+after_success:
+  - echo "${SFTP_KEY}" | base64 --decode >/tmp/sftp_rsa
+  - curl --ftp-create-dirs
+    -T filename
+    --key /tmp/sftp_rsa
+    sftp://${SFTP_USER}:${SFTP_PASSWORD}@example.com/directory/filename
 
 deploy:
   provider: script
