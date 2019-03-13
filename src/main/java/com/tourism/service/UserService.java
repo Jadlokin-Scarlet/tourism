@@ -37,10 +37,10 @@ public class UserService {
 //		return users.get(0);
 //	}
 
-//	@Transactional
-//	public User getUser(int userId){
-//		return userMapper.selectByUserId(userId);
-//	}
+	@Transactional
+	public User getUserByUserId(int userId){
+		return userMapper.selectByPrimaryKey(userId);
+	}
 
 	@Transactional
 	public List<User> getUsers(int limit){

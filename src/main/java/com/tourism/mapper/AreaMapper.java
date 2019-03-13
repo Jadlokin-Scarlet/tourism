@@ -3,13 +3,13 @@ package com.tourism.mapper;
 import com.tourism.entity.Area;
 
 public interface AreaMapper {
-    int deleteByPrimaryKey(Integer areaId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Area record);
 
     int insertSelective(Area record);
 
-    Area selectByPrimaryKey(Integer areaId);
+    Area selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Area record);
 

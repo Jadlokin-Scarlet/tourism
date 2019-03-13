@@ -1,44 +1,34 @@
 package com.tourism.entity;
 
 public class Deal {
-    private Integer dealId;
+    private Integer id;
 
-    private Integer typeId;
+    private Integer dealGroupId;
 
-    private Integer areaId;
+    private Integer price;
 
-    private String dealName;
-
-    public Integer getDealId() {
-        return dealId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDealId(Integer dealId) {
-        this.dealId = dealId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getTypeId() {
-        return typeId;
+    public Integer getDealGroupId() {
+        return dealGroupId;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setDealGroupId(Integer dealGroupId) {
+        this.dealGroupId = dealGroupId;
     }
 
-    public Integer getAreaId() {
-        return areaId;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
-    }
-
-    public String getDealName() {
-        return dealName;
-    }
-
-    public void setDealName(String dealName) {
-        this.dealName = dealName == null ? null : dealName.trim();
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override
@@ -47,10 +37,9 @@ public class Deal {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", dealId=").append(dealId);
-        sb.append(", typeId=").append(typeId);
-        sb.append(", areaId=").append(areaId);
-        sb.append(", dealName=").append(dealName);
+        sb.append(", id=").append(id);
+        sb.append(", dealGroupId=").append(dealGroupId);
+        sb.append(", price=").append(price);
         sb.append("]");
         return sb.toString();
     }
@@ -67,20 +56,18 @@ public class Deal {
             return false;
         }
         Deal other = (Deal) that;
-        return (this.getDealId() == null ? other.getDealId() == null : this.getDealId().equals(other.getDealId()))
-            && (this.getTypeId() == null ? other.getTypeId() == null : this.getTypeId().equals(other.getTypeId()))
-            && (this.getAreaId() == null ? other.getAreaId() == null : this.getAreaId().equals(other.getAreaId()))
-            && (this.getDealName() == null ? other.getDealName() == null : this.getDealName().equals(other.getDealName()));
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getDealGroupId() == null ? other.getDealGroupId() == null : this.getDealGroupId().equals(other.getDealGroupId()))
+            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getDealId() == null) ? 0 : getDealId().hashCode());
-        result = prime * result + ((getTypeId() == null) ? 0 : getTypeId().hashCode());
-        result = prime * result + ((getAreaId() == null) ? 0 : getAreaId().hashCode());
-        result = prime * result + ((getDealName() == null) ? 0 : getDealName().hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getDealGroupId() == null) ? 0 : getDealGroupId().hashCode());
+        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
         return result;
     }
 }
