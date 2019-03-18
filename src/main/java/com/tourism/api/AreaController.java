@@ -4,16 +4,16 @@ import com.tourism.entity.Area;
 import com.tourism.service.AreaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Api("areaApi")
 @RestController
@@ -24,15 +24,50 @@ public class AreaController {
 
 	@Autowired
 	public AreaController(AreaService areaService) {
-		Assert.notNull(areaService,areaService.getClass()+"areaService in "+this.getClass()+" is null");
+		Assert.notNull(areaService,areaService.getClass()+" in "+this.getClass()+" is null");
+//		Assert.notNull(areaService);
 		this.areaService = areaService;
+	}
+
+	@GetMapping("/list")
+	@ApiOperation(value = "获取地区列表")
+//	@ApiImplicitParam(name = "isSort",value = "是否排序",required = false,dataType = "boolean",defaultValue = "false",paramType = "path")
+	public ResponseEntity<List<Area>> getAreaAll(){
+		//TODO
+		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+	}
+
+	@GetMapping(value = "/list/{fuzzyKey}")
+	@ApiOperation("模糊查询匹配的地区列表")
+	@ApiImplicitParams ({
+			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键字",required = true,dataType = "String",paramType = "path"),
+			@ApiImplicitParam(name = "number",value = "查询数量",defaultValue = "10",dataType = "Integer",paramType = "query")
+	})
+	public ResponseEntity<List<Area>> getAreaByKey(@PathVariable String fuzzyKey,@PathVariable Integer number){
+		//TODO
+		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
 
 	@GetMapping("/{areaName}")
 	@ApiOperation(value = "根据地区名称获取地区信息")
-	@ApiImplicitParam(paramType = "path",name = "areaName",value = "地名",required = true,dataType = "String")
+	@ApiImplicitParam(name = "areaName",value = "地名",required = true,dataType = "String",paramType = "path")
 	public ResponseEntity<Area> getAreaByPhone(@PathVariable String areaName){
-		return ResponseEntity.ok().build();
+		//TODO
+		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
+
+
+
+
+
+
+//
+//	@GetMapping({"?parentName={parentName}&number={number}"})
+//	@ApiOperation("根据传入的值（可选）获得热门目的地")
+//	@ApiImplicitParam(name = "parentName",value = "地名",required = false,dataType = "String")
+//	public ResponseEntity<Area> getAreaTop(@PathVariable String parentName){
+//		//TODO
+//		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+//	}
 
 }

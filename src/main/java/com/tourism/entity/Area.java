@@ -9,6 +9,8 @@ public class Area {
 
     private String areaFolkCustom;
 
+    private String parentName;
+
     public Integer getAreaId() {
         return areaId;
     }
