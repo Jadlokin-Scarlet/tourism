@@ -29,7 +29,7 @@ public class AreaController {
 		this.areaService = areaService;
 	}
 
-	@GetMapping("/list")
+	@GetMapping("")
 	@ApiOperation(value = "获取地区列表")
 //	@ApiImplicitParam(name = "isSort",value = "是否排序",required = false,dataType = "boolean",defaultValue = "false",paramType = "path")
 	public ResponseEntity<List<Area>> getAreaAll(){
@@ -37,11 +37,11 @@ public class AreaController {
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
 
-	@GetMapping(value = "/list/{fuzzyKey}")
+	@GetMapping(value = "?fuzzyKey={fuzzyKey}&number={number}",params = "fuzzyKey")
 	@ApiOperation("模糊查询匹配的地区列表")
 	@ApiImplicitParams ({
 			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键字",required = true,dataType = "String",paramType = "path"),
-			@ApiImplicitParam(name = "number",value = "查询数量",defaultValue = "10",dataType = "Integer",paramType = "query")
+			@ApiImplicitParam(name = "number",value = "查询数量",defaultValue = "10",dataType = "Integer",paramType = "path")
 	})
 	public ResponseEntity<List<Area>> getAreaByKey(@PathVariable String fuzzyKey,@PathVariable Integer number){
 		//TODO
@@ -56,18 +56,11 @@ public class AreaController {
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
 
-
-
-
-
-
-//
-//	@GetMapping({"?parentName={parentName}&number={number}"})
-//	@ApiOperation("根据传入的值（可选）获得热门目的地")
-//	@ApiImplicitParam(name = "parentName",value = "地名",required = false,dataType = "String")
-//	public ResponseEntity<Area> getAreaTop(@PathVariable String parentName){
-//		//TODO
-//		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
-//	}
-
+	@GetMapping(value = "{areaName}/childArea")
+	@ApiOperation("根据地区名称查询当热门地区")
+	@ApiImplicitParam(name = "areaName",value = "地名",required = true,dataType = "String",paramType = "path")
+	public ResponseEntity<List<Area>> getAreaByParentName(@PathVariable String areaName){
+		//TODO
+		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+	}
 }

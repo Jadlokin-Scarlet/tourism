@@ -2,6 +2,7 @@ package com.tourism.mapper;
 
 import com.tourism.entity.User;
 
+@org.springframework.stereotype.Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 

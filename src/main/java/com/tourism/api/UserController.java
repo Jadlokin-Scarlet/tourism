@@ -1,5 +1,6 @@
 package com.tourism.api;
 
+import com.tourism.entity.Order;
 import com.tourism.entity.User;
 import com.tourism.service.UserService;
 import io.swagger.annotations.Api;
@@ -9,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Year;
 import java.util.List;
@@ -42,17 +40,41 @@ public class UserController {
 
 	@GetMapping("/{userId}")
 	@ApiOperation(value = "根据uid获取用户信息")
-	@ApiImplicitParam(paramType = "path",name = "userId",value = "用户id",required = true,dataType = "Integer")
+	@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "Integer",paramType = "path")
 	public ResponseEntity<User> getUserByPhone(@PathVariable Integer userId){
 		return ResponseEntity.ok(userService.getUserByUserId(userId));
 	}
 
-	@GetMapping("/id/{phone}")
-	@ApiOperation("根据手机号获取uid")
-	@ApiImplicitParam(paramType = "path",name = "phone",value = "用户手机号",required = true,dataType = "Long")
-	public ResponseEntity<User> getUserById(@PathVariable Long phone){
+	@GetMapping("/{userName}/calender")
+	@ApiOperation("获取用户行程表")
+	@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "Integer",paramType = "path")
+	public ResponseEntity<List<Order>> getUserCalender(@PathVariable String userName){
 		//TODO
-		return null;
+		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+	}
+
+
+
+
+
+	@PutMapping("/userCode")
+	@ApiOperation("用userCode更新用户信息")
+	@ApiImplicitParam(name = "code",value = "用户code",required = true,dataType = "String",paramType = "body")
+	public ResponseEntity<User> updateUserByCode(@RequestBody String code){
+		//TODO
+		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+	}
+
+	@PostMapping("/userCode")
+	@ApiOperation("存入用户openID和sessionKey通过code")
+	@ApiImplicitParam(name = "code",value = "用户code",required = true,dataType = "String",paramType = "body")
+	public ResponseEntity<User> createUserByCode(@RequestBody String code){
+		return ResponseEntity.ok(userService.createUserByCode(code));
+//		System.out.println(code);
+//		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+//		User user = new User();
+//		user.setId(123);
+//		return ResponseEntity.ok(user);
 	}
 
 }

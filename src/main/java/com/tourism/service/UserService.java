@@ -2,26 +2,27 @@ package com.tourism.service;
 
 import com.tourism.entity.User;
 import com.tourism.mapper.UserMapper;
+import com.tourism.wxtool.WXTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @Service
 public class UserService {
 
 	private UserMapper userMapper;
+	private WXTool wxTool;
 
 	@Autowired
-	public UserService(UserMapper userMapper){
+	public UserService(UserMapper userMapper, WXTool wxTool) {
 		this.userMapper = userMapper;
+		this.wxTool = wxTool;
 	}
 
 	private Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -50,4 +51,9 @@ public class UserService {
 		return userList;
 	}
 
+	public User createUserByCode(String code) {
+		System.out.println(wxTool.getUserOpenIdAndSessionKeyByCode(code));
+		//TODO
+		return null;
+	}
 }

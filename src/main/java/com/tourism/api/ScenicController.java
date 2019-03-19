@@ -13,35 +13,29 @@ import java.util.List;
 
 @Api("scenicApi")
 @RestController
-@RequestMapping("/api/scenic")
+@RequestMapping("/api/area/{areaName}/scenic")
 public class ScenicController {
 
-	@GetMapping(value = "/list/{fuzzyKey}")
-	@ApiOperation("模糊查询匹配的景区")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键字",required = true,dataType = "String",paramType = "path"),
-			@ApiImplicitParam(name = "number",value = "查询数量",defaultValue = "10",dataType = "Integer",paramType = "query")
-	})
-	public ResponseEntity<List<Scenic>> getScenicAll(@PathVariable String fuzzyKey,@RequestParam(required = false,defaultValue = "10") Integer number){
-		//TODO
-//		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
-		return null;
-	}
-
-	@GetMapping("{areaName}")
-	@ApiOperation(value = "根据地区名称获取当地热门景区信息",notes = "")
+	@GetMapping("")
+	@ApiOperation(value = "根据地区名称获取当地热门景区列表信息",notes = "")
 	@ApiImplicitParam(name = "areaName",value = "地区名称",required = true,dataType = "String",paramType = "path")
 	public ResponseEntity<List<Scenic>> getScenicTop(@PathVariable String areaName){
 		//TODO
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
 
-	@GetMapping("{areaName}/key/{key}")
-	@ApiOperation(value = "根据关键词查询某地景区信息")
-	@ApiImplicitParam(name = "areaName",value = "地区名称",required = true,dataType = "String",paramType = "path")
-	public ResponseEntity<Scenic> getScenicByKey(@PathVariable String areaName,@PathVariable String key){
+	@GetMapping(value = "?fuzzyKey={fuzzyKey}&number={number}",params = "fuzzyKey")
+	@ApiOperation("模糊查询匹配的景区列表")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键字",required = true,dataType = "String",paramType = "path"),
+			@ApiImplicitParam(name = "number",value = "查询数量",defaultValue = "10",dataType = "Integer",paramType = "path"),
+			@ApiImplicitParam(name = "areaName",value = "地名",required = true,dataType = "String",paramType = "path")
+	})
+	public ResponseEntity<List<Scenic>> getScenicFuzzy(@PathVariable String areaName,@PathVariable String fuzzyKey,@PathVariable(required = false) Integer number){
 		//TODO
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
+
+
 
 }

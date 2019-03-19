@@ -5,12 +5,12 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickName" />
+    <result column="openId" jdbcType="VARCHAR" property="openId" />
     <result column="phone" jdbcType="BIGINT" property="phone" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, create_time, update_time, name, password, phone
+    id, create_time, update_time, nickName, openId, phone
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,10 +24,10 @@
   </delete>
   <insert id="insert" parameterType="com.tourism.entity.User">
     insert into user (id, create_time, update_time, 
-      name, password, phone
+      nickName, openId, phone
       )
     values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}
+      #{nickName,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tourism.entity.User">
@@ -42,11 +42,11 @@
       <if test="updateTime != null">
         update_time,
       </if>
-      <if test="name != null">
-        name,
+      <if test="nickName != null">
+        nickName,
       </if>
-      <if test="password != null">
-        password,
+      <if test="openId != null">
+        openId,
       </if>
       <if test="phone != null">
         phone,
@@ -62,11 +62,11 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=BIGINT},
@@ -82,11 +82,11 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="nickName != null">
+        nickName = #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="openId != null">
+        openId = #{openId,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=BIGINT},
@@ -98,8 +98,8 @@
     update user
     set create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+      nickName = #{nickName,jdbcType=VARCHAR},
+      openId = #{openId,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>

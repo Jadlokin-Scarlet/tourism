@@ -9,9 +9,9 @@ public class User {
 
     private Date updateTime;
 
-    private String name;
+    private String nickName;
 
-    private String password;
+    private String openId;
 
     private Long phone;
 
@@ -39,20 +39,20 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public String getName() {
-        return name;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setOpenId(String openId) {
+        this.openId = openId == null ? null : openId.trim();
     }
 
     public Long getPhone() {
@@ -72,8 +72,8 @@ public class User {
         sb.append(", id=").append(id);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", name=").append(name);
-        sb.append(", password=").append(password);
+        sb.append(", nickName=").append(nickName);
+        sb.append(", openId=").append(openId);
         sb.append(", phone=").append(phone);
         sb.append("]");
         return sb.toString();
@@ -94,8 +94,8 @@ public class User {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+            && (this.getNickName() == null ? other.getNickName() == null : this.getNickName().equals(other.getNickName()))
+            && (this.getOpenId() == null ? other.getOpenId() == null : this.getOpenId().equals(other.getOpenId()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()));
     }
 
@@ -106,8 +106,8 @@ public class User {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
+        result = prime * result + ((getNickName() == null) ? 0 : getNickName().hashCode());
+        result = prime * result + ((getOpenId() == null) ? 0 : getOpenId().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         return result;
     }
