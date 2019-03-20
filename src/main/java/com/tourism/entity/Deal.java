@@ -1,11 +1,29 @@
 package com.tourism.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+
+@ApiModel(value = "商品实体类",description = "作为很多实体类的基类")
 public class Deal {
+    @ApiModelProperty("商品id")
     private Integer id;
 
-    private Integer dealGroupId;
+    @ApiModelProperty("商品上架时间")
+    private Date createTime;
+    @ApiModelProperty("商品最后更新时间")
+    private Date updateTime;
 
+    @ApiModelProperty("商品名称")
+    private String name;
+    @ApiModelProperty("简介")
+    private String briefIntroduce;
+
+    @ApiModelProperty("单价")
     private Integer price;
+    @ApiModelProperty("余量")
+    private Integer balance;
 
     public Integer getId() {
         return id;
@@ -15,12 +33,36 @@ public class Deal {
         this.id = id;
     }
 
-    public Integer getDealGroupId() {
-        return dealGroupId;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setDealGroupId(Integer dealGroupId) {
-        this.dealGroupId = dealGroupId;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBriefIntroduce() {
+        return briefIntroduce;
+    }
+
+    public void setBriefIntroduce(String briefIntroduce) {
+        this.briefIntroduce = briefIntroduce;
     }
 
     public Integer getPrice() {
@@ -31,43 +73,11 @@ public class Deal {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", dealGroupId=").append(dealGroupId);
-        sb.append(", price=").append(price);
-        sb.append("]");
-        return sb.toString();
+    public Integer getBalance() {
+        return balance;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        Deal other = (Deal) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getDealGroupId() == null ? other.getDealGroupId() == null : this.getDealGroupId().equals(other.getDealGroupId()))
-            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getDealGroupId() == null) ? 0 : getDealGroupId().hashCode());
-        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
-        return result;
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 }

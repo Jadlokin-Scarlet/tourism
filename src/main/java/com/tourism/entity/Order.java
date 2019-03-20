@@ -1,28 +1,52 @@
 package com.tourism.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
-
+import java.util.List;
+@ApiModel("订单实体类")
 public class Order {
-    private Integer orderId;
+    @ApiModelProperty("订单id")
+    private Integer id;
 
-    private Date orderCreateTime;
-
+    @ApiModelProperty("购买者id")
     private Integer userId;
+    @ApiModelProperty("购买的商品id")
+    private Integer dealId;
 
-    public Integer getOrderId() {
-        return orderId;
+    @ApiModelProperty("订单创建时间")
+    private Date createTime;
+    @ApiModelProperty("订单最后更新时间")
+    private Date updateTime;
+
+    @ApiModelProperty(value = "订单状态",example = "待付款,待使用,待评价,已完成")
+    private String payStat;
+
+    @ApiModelProperty("总价")
+    private Double totalPrice;
+    @ApiModelProperty("实付")
+    private Double actualPay;
+    @ApiModelProperty("数量")
+    private Integer number;
+    @ApiModelProperty("支付方式")
+    private String payType;
+
+    @ApiModelProperty("几星评价")
+    private Double star;
+    @ApiModelProperty("评论")
+    private String comment;
+    @ApiModelProperty("评论时间")
+    private Date commentTime;
+    @ApiModelProperty("评论配图地址")
+    private List<String> commentImgUrl;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
-    public Date getOrderCreateTime() {
-        return orderCreateTime;
-    }
-
-    public void setOrderCreateTime(Date orderCreateTime) {
-        this.orderCreateTime = orderCreateTime;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getUserId() {
@@ -33,43 +57,99 @@ public class Order {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", orderId=").append(orderId);
-        sb.append(", orderCreateTime=").append(orderCreateTime);
-        sb.append(", userId=").append(userId);
-        sb.append("]");
-        return sb.toString();
+    public Integer getDealId() {
+        return dealId;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        Order other = (Order) that;
-        return (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
-            && (this.getOrderCreateTime() == null ? other.getOrderCreateTime() == null : this.getOrderCreateTime().equals(other.getOrderCreateTime()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()));
+    public void setDealId(Integer dealId) {
+        this.dealId = dealId;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
-        result = prime * result + ((getOrderCreateTime() == null) ? 0 : getOrderCreateTime().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        return result;
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getPayStat() {
+        return payStat;
+    }
+
+    public void setPayStat(String payStat) {
+        this.payStat = payStat;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Double getActualPay() {
+        return actualPay;
+    }
+
+    public void setActualPay(Double actualPay) {
+        this.actualPay = actualPay;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
+    public Double getStar() {
+        return star;
+    }
+
+    public void setStar(Double star) {
+        this.star = star;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Date getCommentTime() {
+        return commentTime;
+    }
+
+    public void setCommentTime(Date commentTime) {
+        this.commentTime = commentTime;
+    }
+
+    public List<String> getCommentImgUrl() {
+        return commentImgUrl;
+    }
+
+    public void setCommentImgUrl(List<String> commentImgUrl) {
+        this.commentImgUrl = commentImgUrl;
     }
 }

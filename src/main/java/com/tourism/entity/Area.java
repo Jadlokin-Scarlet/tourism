@@ -1,88 +1,51 @@
 package com.tourism.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.List;
+
+@ApiModel(value = "地区实体类",description = "地区实体类是树形结构")
 public class Area {
-    private Integer areaId;
+    @ApiModelProperty("地区名称")
+    private String name;
 
-    private String areaName;
+    @ApiModelProperty("简介")
+    private String briefIntroduce;
+    @ApiModelProperty("详细介绍的链接")
+    private String introduceUrl;
+    @ApiModelProperty("子地区")
+    private List<String> childArea;
 
-    private String areaIntroduce;
-
-    private String areaFolkCustom;
-
-    private String parentName;
-
-    public Integer getAreaId() {
-        return areaId;
+    public String getName() {
+        return name;
     }
 
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAreaName() {
-        return areaName;
+    public String getBriefIntroduce() {
+        return briefIntroduce;
     }
 
-    public void setAreaName(String areaName) {
-        this.areaName = areaName == null ? null : areaName.trim();
+    public void setBriefIntroduce(String briefIntroduce) {
+        this.briefIntroduce = briefIntroduce;
     }
 
-    public String getAreaIntroduce() {
-        return areaIntroduce;
+    public String getIntroduceUrl() {
+        return introduceUrl;
     }
 
-    public void setAreaIntroduce(String areaIntroduce) {
-        this.areaIntroduce = areaIntroduce == null ? null : areaIntroduce.trim();
+    public void setIntroduceUrl(String introduceUrl) {
+        this.introduceUrl = introduceUrl;
     }
 
-    public String getAreaFolkCustom() {
-        return areaFolkCustom;
+    public List<String> getChildArea() {
+        return childArea;
     }
 
-    public void setAreaFolkCustom(String areaFolkCustom) {
-        this.areaFolkCustom = areaFolkCustom == null ? null : areaFolkCustom.trim();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", areaId=").append(areaId);
-        sb.append(", areaName=").append(areaName);
-        sb.append(", areaIntroduce=").append(areaIntroduce);
-        sb.append(", areaFolkCustom=").append(areaFolkCustom);
-        sb.append("]");
-        return sb.toString();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        Area other = (Area) that;
-        return (this.getAreaId() == null ? other.getAreaId() == null : this.getAreaId().equals(other.getAreaId()))
-            && (this.getAreaName() == null ? other.getAreaName() == null : this.getAreaName().equals(other.getAreaName()))
-            && (this.getAreaIntroduce() == null ? other.getAreaIntroduce() == null : this.getAreaIntroduce().equals(other.getAreaIntroduce()))
-            && (this.getAreaFolkCustom() == null ? other.getAreaFolkCustom() == null : this.getAreaFolkCustom().equals(other.getAreaFolkCustom()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getAreaId() == null) ? 0 : getAreaId().hashCode());
-        result = prime * result + ((getAreaName() == null) ? 0 : getAreaName().hashCode());
-        result = prime * result + ((getAreaIntroduce() == null) ? 0 : getAreaIntroduce().hashCode());
-        result = prime * result + ((getAreaFolkCustom() == null) ? 0 : getAreaFolkCustom().hashCode());
-        return result;
+    public void setChildArea(List<String> childArea) {
+        this.childArea = childArea;
     }
 }

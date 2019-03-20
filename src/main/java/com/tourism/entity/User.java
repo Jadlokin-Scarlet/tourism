@@ -1,19 +1,33 @@
 package com.tourism.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel("User实体类")
 public class User {
+    @ApiModelProperty("用户id")
     private Integer id;
 
+    @ApiModelProperty("用户注册时间")
     private Date createTime;
-
+    @ApiModelProperty("用户信息最后更新时间")
     private Date updateTime;
 
+    @ApiModelProperty("昵称")
     private String nickName;
-
+    @ApiModelProperty("微信openID")
     private String openId;
+    @ApiModelProperty("微信SessionKey")
+    private String sessionKey;
 
-    private Long phone;
+    @ApiModelProperty("性别")
+    private String sex;
+    @ApiModelProperty("手机号")
+    private String phone;
+    @ApiModelProperty("头像图片地址")
+    private String avatarUrl;
 
     public Integer getId() {
         return id;
@@ -44,7 +58,7 @@ public class User {
     }
 
     public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
+        this.nickName = nickName;
     }
 
     public String getOpenId() {
@@ -52,63 +66,38 @@ public class User {
     }
 
     public void setOpenId(String openId) {
-        this.openId = openId == null ? null : openId.trim();
+        this.openId = openId;
     }
 
-    public Long getPhone() {
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", nickName=").append(nickName);
-        sb.append(", openId=").append(openId);
-        sb.append(", phone=").append(phone);
-        sb.append("]");
-        return sb.toString();
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        User other = (User) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getNickName() == null ? other.getNickName() == null : this.getNickName().equals(other.getNickName()))
-            && (this.getOpenId() == null ? other.getOpenId() == null : this.getOpenId().equals(other.getOpenId()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getNickName() == null) ? 0 : getNickName().hashCode());
-        result = prime * result + ((getOpenId() == null) ? 0 : getOpenId().hashCode());
-        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        return result;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

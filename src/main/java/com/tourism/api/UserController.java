@@ -45,15 +45,13 @@ public class UserController {
 		return ResponseEntity.ok(userService.getUserByUserId(userId));
 	}
 
-	@GetMapping("/{userName}/calender")
+	@GetMapping("/{userId}/calender")
 	@ApiOperation("获取用户行程表")
 	@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "Integer",paramType = "path")
-	public ResponseEntity<List<Order>> getUserCalender(@PathVariable String userName){
+	public ResponseEntity<List<Order>> getUserCalender(@PathVariable String userId){
 		//TODO
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
-
-
 
 
 
