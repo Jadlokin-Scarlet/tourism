@@ -8,10 +8,20 @@ import feign.Request;
 import feign.Retryer;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@PropertySource("classpath:WxApi.yml")
 public class WXTool {
+
+	@Value("${appId}")
+	private String appId;
+
+	@Value("${secret}")
+	private String secret;
 
 	public WxCodeResultDto getUserOpenIdAndSessionKeyByCode(String code){
 		WxApi action = Feign.builder()
@@ -25,8 +35,8 @@ public class WXTool {
 //						"http://10.210.96.229:8080"
 				);
 		return action.jscode2session(new WxCodeDto(
-				"wxfbd4b4c47681cc0b",
-				"394d0a5c7d34b38a2d05e991419fb506",
+				appId,
+				secret,
 				code,
 				"authorization_code"
 		));
