@@ -1,20 +1,21 @@
-package com.tourism.wxtool;
+package com.tourism.util.wxtool;
 
-import com.tourism.wxtool.apiBind.WxApi;
-import com.tourism.wxtool.dto.WxCodeDto;
-import com.tourism.wxtool.dto.WxCodeResultDto;
+import com.tourism.util.wxtool.apiBind.WxApi;
+import com.tourism.util.wxtool.dto.WxCodeDto;
+import com.tourism.util.wxtool.dto.WxCodeResultDto;
 import feign.Feign;
 import feign.Request;
 import feign.Retryer;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @PropertySource("classpath:WxApi.yml")
+@Slf4j
 public class WXTool {
 
 	@Value("${appId}")
@@ -34,13 +35,14 @@ public class WXTool {
 						"https://api.weixin.qq.com"
 //						"http://10.210.96.229:8080"
 				);
-		return action.jscode2session(new WxCodeDto(
+		WxCodeResultDto wxCodeResultDto = action.jscode2session(new WxCodeDto(
 				appId,
 				secret,
 				code,
 				"authorization_code"
 		));
-//		return action.setUserByCode(code);
+		log.info("code: "+code+" become resultDto: "+wxCodeResultDto);
+		return wxCodeResultDto;
 	}
 
 }

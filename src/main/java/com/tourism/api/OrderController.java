@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -20,19 +21,19 @@ public class OrderController {
 
 	@GetMapping("")
 	@ApiOperation(value = "获取用户的所有订单",notes = "是所有哦")
-	@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "Integer",paramType = "path")
-	public ResponseEntity<List<Order>> getUserAllOrder(){
+	@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "int",paramType = "path")
+	public ResponseEntity<List<Order>> getUserAllOrder(@PathVariable Integer userId){
 		//TODO
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
 
-	@GetMapping(value = "?orderType={orderType}",params = "orderType")
-	@ApiOperation("获取用户某一种类的订单")
+	@GetMapping(value = "",params = "orderType")
+	@ApiOperation(value = "获取用户某一种类的订单",notes = "需要参数orderType")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "Integer",paramType = "path"),
-		@ApiImplicitParam(name = "orderType",value = "订单种类",required = true,dataType = "String",paramType = "path")
+		@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "int",paramType = "path"),
+		@ApiImplicitParam(name = "orderType",value = "订单种类",required = true,dataType = "String",paramType = "query")
 	})
-	public ResponseEntity<List<Order>> getUserOrderByType(){
+	public ResponseEntity<List<Order>> getUserOrderByType(@PathVariable Integer userId,@PathVariable String orderType){
 		//TODO
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}

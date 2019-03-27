@@ -1,6 +1,6 @@
 package com.tourism.service;
 
-import com.tourism.wxtool.WXTool;
+import com.tourism.util.wxtool.WXTool;
 import org.junit.Test;
 
 public class UserServiceTest {

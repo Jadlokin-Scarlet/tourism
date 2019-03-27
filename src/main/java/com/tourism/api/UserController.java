@@ -1,23 +1,27 @@
 package com.tourism.api;
 
-import com.tourism.entity.Order;
+import com.tourism.api.business.HotelController;
 import com.tourism.entity.User;
 import com.tourism.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Year;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Api("userApi")
 @RestController
 @RequestMapping("/api/user")
+@Validated
 public class UserController {
 
 	private UserService userService;
@@ -40,33 +44,24 @@ public class UserController {
 
 	@GetMapping("/{userId}")
 	@ApiOperation(value = "根据uid获取用户信息")
-	@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "Integer",paramType = "path")
+	@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "int",paramType = "path")
 	public ResponseEntity<User> getUserByPhone(@PathVariable Integer userId){
+		LoggerFactory.getLogger(HotelController.class).warn(userId.toString());
 		return ResponseEntity.ok(userService.getUserByUserId(userId));
 	}
 
-	@GetMapping("/{userId}/calender")
-	@ApiOperation("获取用户行程表")
-	@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "Integer",paramType = "path")
-	public ResponseEntity<List<Order>> getUserCalender(@PathVariable String userId){
-		//TODO
-		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
-	}
-
-
-
 	@PutMapping("/userCode")
 	@ApiOperation("用userCode更新用户信息")
-	@ApiImplicitParam(name = "code",value = "用户code",required = true,dataType = "String",paramType = "body")
-	public ResponseEntity<User> updateUserByCode(@RequestBody String code){
+	@ApiImplicitParam(name = "code",value = "用户code",required = true,dataType = "int",paramType = "body")
+	public ResponseEntity<User> updateUserByCode(@RequestBody@NotBlank(message = "code不得为空") String code){
 		//TODO
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
 
 	@PostMapping("/userCode")
 	@ApiOperation("存入用户openID和sessionKey通过code")
-	@ApiImplicitParam(name = "code",value = "用户code",required = true,dataType = "String",paramType = "body")
-	public ResponseEntity<User> createUserByCode(@RequestBody String code){
+	@ApiImplicitParam(name = "code",value = "用户code",required = true,dataType = "int",paramType = "body")
+	public ResponseEntity<User> createUserByCode(@RequestBody@NotNull String code){
 		return ResponseEntity.ok(userService.createUserByCode(code));
 //		System.out.println(code);
 //		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();

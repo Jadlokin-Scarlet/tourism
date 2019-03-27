@@ -20,31 +20,33 @@ import java.util.Optional;
 @RequestMapping("/api/area")
 public class AreaController {
 
-	private AreaService areaService;
+//	private AreaService areaService;
+//
+//	@Autowired
+//	public AreaController(AreaService areaService) {
+//		Assert.notNull(areaService,areaService.getClass()+" in "+this.getClass()+" is null");
+////		Assert.notNull(areaService);
+//		this.areaService = areaService;
+//	}
 
-	@Autowired
-	public AreaController(AreaService areaService) {
-		Assert.notNull(areaService,areaService.getClass()+" in "+this.getClass()+" is null");
-//		Assert.notNull(areaService);
-		this.areaService = areaService;
-	}
-
-	@GetMapping("")
+	@GetMapping(value = "")
 	@ApiOperation(value = "获取地区列表")
-//	@ApiImplicitParam(name = "isSort",value = "是否排序",required = false,dataType = "boolean",defaultValue = "false",paramType = "path")
 	public ResponseEntity<List<Area>> getAreaAll(){
 		//TODO
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
 
-	@GetMapping(value = "?fuzzyKey={fuzzyKey}&number={number}",params = "fuzzyKey")
-	@ApiOperation("模糊查询匹配的地区列表")
+	@GetMapping(value = "",params = "fuzzyKey")
+	@ApiOperation(value = "模糊查询匹配的地区列表",notes = "需要参数fuzzyKey,可选参数number")
 	@ApiImplicitParams ({
-			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键字",required = true,dataType = "String",paramType = "path"),
-			@ApiImplicitParam(name = "number",value = "查询数量",defaultValue = "10",dataType = "Integer",paramType = "path")
+		@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键字",required = true,dataType = "String",paramType = "query"),
+		@ApiImplicitParam(name = "number",value = "查询数量",defaultValue = "10",dataType = "int",paramType = "query")
 	})
-	public ResponseEntity<List<Area>> getAreaByKey(@PathVariable String fuzzyKey,@PathVariable Integer number){
+	public ResponseEntity<List<Area>> getAreaByKey(
+			@RequestParam String fuzzyKey,
+			@RequestParam(required = false,defaultValue = "10") Integer number){
 		//TODO
+		System.out.println(number);
 		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
 	}
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tourism.mapper.HotelMapper">
+	<resultMap id="BaseResultMap" type="com.tourism.entity.business.Hotel" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="brief_introduce" property="briefIntroduce" jdbcType="VARCHAR" />
+		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+		<result column="area_name" property="areaName" jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="DECIMAL" />
+		<result column="brand" property="brand" jdbcType="VARCHAR" />
+		<result column="lever" property="lever" jdbcType="INTEGER" />
+		<result column="money_min" property="moneyMin" jdbcType="INTEGER" />
+		<result column="money_max" property="moneyMax" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id, name, brief_introduce, img_url, area_name, score, brand, lever, money_min, money_max
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select
+		<include refid="Base_Column_List" />
+		from hotel
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+		delete from hotel
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tourism.entity.business.Hotel" >
+		insert into hotel (id, name, brief_introduce,
+						   img_url, area_name, score,
+						   brand, lever, money_min,
+						   money_max)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{briefIntroduce,jdbcType=VARCHAR},
+				#{imgUrl,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL},
+				#{brand,jdbcType=VARCHAR}, #{lever,jdbcType=INTEGER}, #{moneyMin,jdbcType=INTEGER},
+				#{moneyMax,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tourism.entity.business.Hotel" >
+		insert into hotel
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				id,
+			</if>
+			<if test="name != null" >
+				name,
+			</if>
+			<if test="briefIntroduce != null" >
+				brief_introduce,
+			</if>
+			<if test="imgUrl != null" >
+				img_url,
+			</if>
+			<if test="areaName != null" >
+				area_name,
+			</if>
+			<if test="score != null" >
+				score,
+			</if>
+			<if test="brand != null" >
+				brand,
+			</if>
+			<if test="lever != null" >
+				lever,
+			</if>
+			<if test="moneyMin != null" >
+				money_min,
+			</if>
+			<if test="moneyMax != null" >
+				money_max,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null" >
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="briefIntroduce != null" >
+				#{briefIntroduce,jdbcType=VARCHAR},
+			</if>
+			<if test="imgUrl != null" >
+				#{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="areaName != null" >
+				#{areaName,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null" >
+				#{score,jdbcType=DECIMAL},
+			</if>
+			<if test="brand != null" >
+				#{brand,jdbcType=VARCHAR},
+			</if>
+			<if test="lever != null" >
+				#{lever,jdbcType=INTEGER},
+			</if>
+			<if test="moneyMin != null" >
+				#{moneyMin,jdbcType=INTEGER},
+			</if>
+			<if test="moneyMax != null" >
+				#{moneyMax,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.business.Hotel" >
+		update hotel
+		<set >
+			<if test="name != null" >
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="briefIntroduce != null" >
+				brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
+			</if>
+			<if test="imgUrl != null" >
+				img_url = #{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="areaName != null" >
+				area_name = #{areaName,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null" >
+				score = #{score,jdbcType=DECIMAL},
+			</if>
+			<if test="brand != null" >
+				brand = #{brand,jdbcType=VARCHAR},
+			</if>
+			<if test="lever != null" >
+				lever = #{lever,jdbcType=INTEGER},
+			</if>
+			<if test="moneyMin != null" >
+				money_min = #{moneyMin,jdbcType=INTEGER},
+			</if>
+			<if test="moneyMax != null" >
+				money_max = #{moneyMax,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.business.Hotel" >
+		update hotel
+		set name = #{name,jdbcType=VARCHAR},
+			brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
+			img_url = #{imgUrl,jdbcType=VARCHAR},
+			area_name = #{areaName,jdbcType=VARCHAR},
+			score = #{score,jdbcType=DECIMAL},
+			brand = #{brand,jdbcType=VARCHAR},
+			lever = #{lever,jdbcType=INTEGER},
+			money_min = #{moneyMin,jdbcType=INTEGER},
+			money_max = #{moneyMax,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectBySelectiveAndPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from hotel
+		WHERE lever &gt;= #{leverMin}
+			and lever &lt;= #{leverMax}
+			and money_min &gt;= #{moneyMin}
+		  	and money_max &lt;= #{moneyMax}
+			and concat(name,area_name,brand) LIKE "%"#{fuzzyKey}"%"
+	</select>
+
+
+</mapper>

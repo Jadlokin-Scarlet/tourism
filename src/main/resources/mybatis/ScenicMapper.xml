@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tourism.mapper.ScenicMapper" >
+	<resultMap id="BaseResultMap" type="com.tourism.entity.business.Scenic" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="brief_introduce" property="briefIntroduce" jdbcType="VARCHAR" />
+		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+		<result column="area_name" property="areaName" jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="DECIMAL" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="money_min" property="moneyMin" jdbcType="INTEGER" />
+		<result column="lever" property="lever" jdbcType="INTEGER" />
+		<result column="has_p" property="hasP" jdbcType="TINYINT" />
+		<result column="has_wifi" property="hasWifi" jdbcType="TINYINT" />
+		<result column="has_shop" property="hasShop" jdbcType="TINYINT" />
+		<result column="has_wc" property="hasWc" jdbcType="TINYINT" />
+		<result column="has_luggage_storage" property="hasLuggageStorage" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id, name, brief_introduce, img_url, area_name, score, start_time, end_time, money_min,
+    lever, has_p, has_wifi, has_shop, has_wc, has_luggage_storage
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select
+		<include refid="Base_Column_List" />
+		from scenic
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+		delete from scenic
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tourism.entity.business.Scenic" >
+		insert into scenic (id, name, brief_introduce,
+							img_url, area_name, score,
+							start_time, end_time, money_min,
+							lever, has_p, has_wifi,
+							has_shop, has_wc, has_luggage_storage
+		)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{briefIntroduce,jdbcType=VARCHAR},
+				#{imgUrl,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL},
+				#{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{moneyMin,jdbcType=INTEGER},
+				#{lever,jdbcType=INTEGER}, #{hasP,jdbcType=TINYINT}, #{hasWifi,jdbcType=TINYINT},
+				#{hasShop,jdbcType=TINYINT}, #{hasWc,jdbcType=TINYINT}, #{hasLuggageStorage,jdbcType=TINYINT}
+			   )
+	</insert>
+	<insert id="insertSelective" parameterType="com.tourism.entity.business.Scenic" >
+		insert into scenic
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				id,
+			</if>
+			<if test="name != null" >
+				name,
+			</if>
+			<if test="briefIntroduce != null" >
+				brief_introduce,
+			</if>
+			<if test="imgUrl != null" >
+				img_url,
+			</if>
+			<if test="areaName != null" >
+				area_name,
+			</if>
+			<if test="score != null" >
+				score,
+			</if>
+			<if test="startTime != null" >
+				start_time,
+			</if>
+			<if test="endTime != null" >
+				end_time,
+			</if>
+			<if test="moneyMin != null" >
+				money_min,
+			</if>
+			<if test="lever != null" >
+				lever,
+			</if>
+			<if test="hasP != null" >
+				has_p,
+			</if>
+			<if test="hasWifi != null" >
+				has_wifi,
+			</if>
+			<if test="hasShop != null" >
+				has_shop,
+			</if>
+			<if test="hasWc != null" >
+				has_wc,
+			</if>
+			<if test="hasLuggageStorage != null" >
+				has_luggage_storage,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null" >
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="briefIntroduce != null" >
+				#{briefIntroduce,jdbcType=VARCHAR},
+			</if>
+			<if test="imgUrl != null" >
+				#{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="areaName != null" >
+				#{areaName,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null" >
+				#{score,jdbcType=DECIMAL},
+			</if>
+			<if test="startTime != null" >
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null" >
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="moneyMin != null" >
+				#{moneyMin,jdbcType=INTEGER},
+			</if>
+			<if test="lever != null" >
+				#{lever,jdbcType=INTEGER},
+			</if>
+			<if test="hasP != null" >
+				#{hasP,jdbcType=TINYINT},
+			</if>
+			<if test="hasWifi != null" >
+				#{hasWifi,jdbcType=TINYINT},
+			</if>
+			<if test="hasShop != null" >
+				#{hasShop,jdbcType=TINYINT},
+			</if>
+			<if test="hasWc != null" >
+				#{hasWc,jdbcType=TINYINT},
+			</if>
+			<if test="hasLuggageStorage != null" >
+				#{hasLuggageStorage,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.business.Scenic" >
+		update scenic
+		<set >
+			<if test="name != null" >
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="briefIntroduce != null" >
+				brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
+			</if>
+			<if test="imgUrl != null" >
+				img_url = #{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="areaName != null" >
+				area_name = #{areaName,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null" >
+				score = #{score,jdbcType=DECIMAL},
+			</if>
+			<if test="startTime != null" >
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null" >
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="moneyMin != null" >
+				money_min = #{moneyMin,jdbcType=INTEGER},
+			</if>
+			<if test="lever != null" >
+				lever = #{lever,jdbcType=INTEGER},
+			</if>
+			<if test="hasP != null" >
+				has_p = #{hasP,jdbcType=TINYINT},
+			</if>
+			<if test="hasWifi != null" >
+				has_wifi = #{hasWifi,jdbcType=TINYINT},
+			</if>
+			<if test="hasShop != null" >
+				has_shop = #{hasShop,jdbcType=TINYINT},
+			</if>
+			<if test="hasWc != null" >
+				has_wc = #{hasWc,jdbcType=TINYINT},
+			</if>
+			<if test="hasLuggageStorage != null" >
+				has_luggage_storage = #{hasLuggageStorage,jdbcType=TINYINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.business.Scenic" >
+		update scenic
+		set name = #{name,jdbcType=VARCHAR},
+			brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
+			img_url = #{imgUrl,jdbcType=VARCHAR},
+			area_name = #{areaName,jdbcType=VARCHAR},
+			score = #{score,jdbcType=DECIMAL},
+			start_time = #{startTime,jdbcType=TIMESTAMP},
+			end_time = #{endTime,jdbcType=TIMESTAMP},
+			money_min = #{moneyMin,jdbcType=INTEGER},
+			lever = #{lever,jdbcType=INTEGER},
+			has_p = #{hasP,jdbcType=TINYINT},
+			has_wifi = #{hasWifi,jdbcType=TINYINT},
+			has_shop = #{hasShop,jdbcType=TINYINT},
+			has_wc = #{hasWc,jdbcType=TINYINT},
+			has_luggage_storage = #{hasLuggageStorage,jdbcType=TINYINT}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectBySelectiveAndPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from scenic
+		where concat(name,area_name) LIKE "%"#{fuzzyKey}"%"
+	</select>
+</mapper>
