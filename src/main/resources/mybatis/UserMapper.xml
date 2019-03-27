@@ -1,147 +1,147 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tourism.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.tourism.entity.User" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
-    <result column="open_id" property="openId" jdbcType="VARCHAR" />
-    <result column="session_key" property="sessionKey" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="BIGINT" />
-    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, create_time, update_time, nick_name, open_id, session_key, sex, phone, avatar_url
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.tourism.entity.User" >
-    insert into user (id, create_time, update_time, 
-      nick_name, open_id, session_key, 
-      sex, phone, avatar_url
-      )
-    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{nickName,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{sessionKey,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, #{avatarUrl,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.tourism.entity.User" >
-    insert into user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="nickName != null" >
-        nick_name,
-      </if>
-      <if test="openId != null" >
-        open_id,
-      </if>
-      <if test="sessionKey != null" >
-        session_key,
-      </if>
-      <if test="sex != null" >
-        sex,
-      </if>
-      <if test="phone != null" >
-        phone,
-      </if>
-      <if test="avatarUrl != null" >
-        avatar_url,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="nickName != null" >
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="openId != null" >
-        #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="sessionKey != null" >
-        #{sessionKey,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=BIGINT},
-      </if>
-      <if test="avatarUrl != null" >
-        #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.User" >
-    update user
-    <set >
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="nickName != null" >
-        nick_name = #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="openId != null" >
-        open_id = #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="sessionKey != null" >
-        session_key = #{sessionKey,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null" >
-        sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=BIGINT},
-      </if>
-      <if test="avatarUrl != null" >
-        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tourism.entity.User" >
-    update user
-    set create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      nick_name = #{nickName,jdbcType=VARCHAR},
-      open_id = #{openId,jdbcType=VARCHAR},
-      session_key = #{sessionKey,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=BIGINT},
-      avatar_url = #{avatarUrl,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
-    <include refid="Base_Column_List" />
-    from user
-    where open_id = #{openId,jdbcType=INTEGER}
-  </select>
+	<resultMap id="BaseResultMap" type="com.tourism.entity.User" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="open_id" property="openId" jdbcType="VARCHAR" />
+		<result column="session_key" property="sessionKey" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="BIGINT" />
+		<result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id, create_time, update_time, nick_name, open_id, session_key, sex, phone, avatar_url
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+		delete from user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tourism.entity.User" >
+		insert into user (id, create_time, update_time,
+						  nick_name, open_id, session_key,
+						  sex, phone, avatar_url
+		)
+		values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+				#{nickName,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{sessionKey,jdbcType=VARCHAR},
+				#{sex,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, #{avatarUrl,jdbcType=VARCHAR}
+			   )
+	</insert>
+	<insert id="insertSelective" parameterType="com.tourism.entity.User" >
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				id,
+			</if>
+			<if test="createTime != null" >
+				create_time,
+			</if>
+			<if test="updateTime != null" >
+				update_time,
+			</if>
+			<if test="nickName != null" >
+				nick_name,
+			</if>
+			<if test="openId != null" >
+				open_id,
+			</if>
+			<if test="sessionKey != null" >
+				session_key,
+			</if>
+			<if test="sex != null" >
+				sex,
+			</if>
+			<if test="phone != null" >
+				phone,
+			</if>
+			<if test="avatarUrl != null" >
+				avatar_url,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null" >
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null" >
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="nickName != null" >
+				#{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null" >
+				#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="sessionKey != null" >
+				#{sessionKey,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null" >
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null" >
+				#{phone,jdbcType=BIGINT},
+			</if>
+			<if test="avatarUrl != null" >
+				#{avatarUrl,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.User" >
+		update user
+		<set >
+			<if test="createTime != null" >
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null" >
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="nickName != null" >
+				nick_name = #{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null" >
+				open_id = #{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="sessionKey != null" >
+				session_key = #{sessionKey,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null" >
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null" >
+				phone = #{phone,jdbcType=BIGINT},
+			</if>
+			<if test="avatarUrl != null" >
+				avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.User" >
+		update user
+		set create_time = #{createTime,jdbcType=TIMESTAMP},
+			update_time = #{updateTime,jdbcType=TIMESTAMP},
+			nick_name = #{nickName,jdbcType=VARCHAR},
+			open_id = #{openId,jdbcType=VARCHAR},
+			session_key = #{sessionKey,jdbcType=VARCHAR},
+			sex = #{sex,jdbcType=VARCHAR},
+			phone = #{phone,jdbcType=BIGINT},
+			avatar_url = #{avatarUrl,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where open_id = #{openId,jdbcType=INTEGER}
+	</select>
 </mapper>

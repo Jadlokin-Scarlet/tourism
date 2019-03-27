@@ -1,0 +1,54 @@
+GET http://localhost:8080/api/users/
+
+###
+
+GET http://localhost:8080/api/user
+
+<> 2019-03-13T042242.200.json
+
+###
+
+GET http://localhost:8080/api/users
+
+###
+
+GET http://localhost:8080/api/users
+
+###
+
+GET http://localhost:8080/api/users
+
+###
+
+GET http://localhost:8080/api/users/
+
+###
+
+GET http://localhost:8080/api/users/
+
+<> 2019-03-04T082859.200.json
+
+###
+
+GET http://localhost:8080/api/users/{userName}
+
+###
+
+GET http://localhost:8080/index
+
+<> 2019-02-27T124837.404.json
+
+###
+
+GET http://localhost:8080/index
+
+<> 2019-02-27T124521.500.json
+
+###
+
+GET http://localhost:8080/index
+
+<> 2019-02-27T123949.500.json
+
+###
+

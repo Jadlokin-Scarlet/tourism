@@ -58,7 +58,7 @@ public class HotelController {
 	) throws ServletRequestOutOfBoundsException {
 		ExceptionUtil.isMaxAreMax(moneyMin,moneyMax,"价格");
 		ExceptionUtil.isMaxAreMax(leverMin,leverMax,"星级");
-		LoggerFactory.getLogger(HotelController.class).debug(fuzzyKey);
+		LoggerFactory.getLogger(HotelController.class).info(fuzzyKey);
 		return ResponseEntity.ok(hotelService.getHotelsByKey(page,pageSize,fuzzyKey,moneyMax,moneyMin,leverMax,leverMin));
 	}
 
