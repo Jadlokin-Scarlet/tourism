@@ -1,22 +1,19 @@
 package com.tourism.api.business;
 
 import com.tourism.entity.business.Hotel;
+import com.tourism.entity.deal.Room;
 import com.tourism.exception.ServletRequestOutOfBoundsException;
 import com.tourism.service.HotelService;
 import com.tourism.util.ExceptionUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -24,9 +21,10 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Controller
-@Api("HotelApi")
-@RequestMapping("api/hotel")
+@Api(value = "HotelApi")
+@RequestMapping(value = "api/hotel")
 @Validated
+@Slf4j
 public class HotelController {
 
 	private HotelService hotelService;
@@ -41,7 +39,7 @@ public class HotelController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "page",value = "第几页",defaultValue = "1",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "pageSize",value = "每页长度",defaultValue = "10",dataType = "int",paramType = "query"),
-			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键词",dataType = "String",paramType = "query"),
+			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键词",defaultValue = "杭州",dataType = "String",paramType = "query"),
 			@ApiImplicitParam(name = "moneyMin",value = "价格下限",defaultValue = "1",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "moneyMax",value = "价格上限",defaultValue = "1000000000",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "leverMin",value = "星级下限",defaultValue = "1",dataType = "int",paramType = "query"),
@@ -58,8 +56,9 @@ public class HotelController {
 	) throws ServletRequestOutOfBoundsException {
 		ExceptionUtil.isMaxAreMax(moneyMin,moneyMax,"价格");
 		ExceptionUtil.isMaxAreMax(leverMin,leverMax,"星级");
-		LoggerFactory.getLogger(HotelController.class).info(fuzzyKey);
-		return ResponseEntity.ok(hotelService.getHotelsByKey(page,pageSize,fuzzyKey,moneyMax,moneyMin,leverMax,leverMin));
+		List<Hotel> hotels = hotelService.getHotelsByKey(page, pageSize, fuzzyKey, moneyMax, moneyMin, leverMax, leverMin);
+		log.info(fuzzyKey+" "+hotels);
+		return ResponseEntity.ok(hotels);
 	}
 
 
@@ -82,5 +81,23 @@ public class HotelController {
 	public ResponseEntity<Hotel> getHotelById(@PathVariable@Min(1) Integer hotelId){
 		return ResponseEntity.ok(hotelService.getHotelById(hotelId));
 	}
+
+	@PostMapping(value = "",produces = "application/json")
+	@ApiOperation(value = "新建酒店")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "hotel",value = "酒店", required = true,dataType = "Hotel",paramType = "body"),
+//			@ApiImplicitParam(name = "name",value = "名字", required = true,dataType = "String",paramType = "query"),
+//			@ApiImplicitParam(name = "briefIntroduce",value = "简介", required = true,dataType = "String",paramType = "query"),
+//			@ApiImplicitParam(name = "address",value = "地址", required = true,dataType = "String",paramType = "query")
+	})
+	public ResponseEntity<Hotel> createHotel(
+			@RequestBody @NotNull Hotel hotel
+	){
+		log.info(hotel.toString());
+		return ResponseEntity.ok(hotel);
+	}
+
+
+
 
 }
