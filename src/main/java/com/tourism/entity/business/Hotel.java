@@ -16,14 +16,11 @@ public class Hotel extends Business {
 	@ApiModelProperty("品牌")
 	private String brand;
 
-	@ApiModelProperty("酒店星级")
+	@ApiModelProperty(value = "酒店星级",example = "0")
 	private int lever;
 
-	@ApiModelProperty("价格下限")
+	@ApiModelProperty(value = "价格下限",example = "0")
 	private int moneyMin;
-
-	@ApiModelProperty("价格上限")
-	private int moneyMax;
 
 }
 

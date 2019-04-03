@@ -22,8 +22,8 @@ public interface HotelMapper {
 
     List<Hotel> selectBySelectiveAndPage(
             @Param("fuzzyKey") String fuzzyKey,
-            @Param("leverMin")Integer leverMin,
-            @Param("leverMax")Integer leverMax,
+            @Param("sortKey") String sortKey,
+            @Param("leverList")List<Integer> leverList,
             @Param("moneyMin")Integer moneyMin,
             @Param("moneyMax")Integer moneyMax,
             @Param("currPage")Integer page,

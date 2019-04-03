@@ -1,127 +1,105 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tourism.mapper.TicketMapper" >
-	<resultMap id="BaseResultMap" type="com.tourism.entity.deal.Ticket" >
-		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
-		<result column="price" property="price" jdbcType="INTEGER" />
-		<result column="balance" property="balance" jdbcType="INTEGER" />
-		<result column="scenic_id" property="scenicId" jdbcType="INTEGER" />
+	<resultMap id="BaseResultMap" type="com.tourism.entity.deal.Ticket">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+		<result column="scenic_id" jdbcType="INTEGER" property="scenicId" />
 	</resultMap>
-	<sql id="Base_Column_List" >
-		id, create_time, update_time, name, img_url, price, balance, scenic_id
+	<sql id="Base_Column_List">
+		id, create_time, update_time, name, img_url, scenic_id
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from ticket
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from ticket
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.tourism.entity.deal.Ticket" >
+	<insert id="insert" parameterType="com.tourism.entity.deal.Ticket">
 		insert into ticket (id, create_time, update_time,
-							name, img_url, price,
-							balance, scenic_id)
+							name, img_url, scenic_id
+		)
 		values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-				#{name,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
-				#{balance,jdbcType=INTEGER}, #{scenicId,jdbcType=INTEGER})
+				#{name,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{scenicId,jdbcType=INTEGER}
+			   )
 	</insert>
-	<insert id="insertSelective" parameterType="com.tourism.entity.deal.Ticket" >
+	<insert id="insertSelective" parameterType="com.tourism.entity.deal.Ticket">
 		insert into ticket
-		<trim prefix="(" suffix=")" suffixOverrides="," >
-			<if test="id != null" >
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
 				id,
 			</if>
-			<if test="createTime != null" >
+			<if test="createTime != null">
 				create_time,
 			</if>
-			<if test="updateTime != null" >
+			<if test="updateTime != null">
 				update_time,
 			</if>
-			<if test="name != null" >
+			<if test="name != null">
 				name,
 			</if>
-			<if test="imgUrl != null" >
+			<if test="imgUrl != null">
 				img_url,
 			</if>
-			<if test="price != null" >
-				price,
-			</if>
-			<if test="balance != null" >
-				balance,
-			</if>
-			<if test="scenicId != null" >
+			<if test="scenicId != null">
 				scenic_id,
 			</if>
 		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides="," >
-			<if test="id != null" >
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="createTime != null" >
+			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="updateTime != null" >
+			<if test="updateTime != null">
 				#{updateTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="name != null" >
+			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
-			<if test="imgUrl != null" >
+			<if test="imgUrl != null">
 				#{imgUrl,jdbcType=VARCHAR},
 			</if>
-			<if test="price != null" >
-				#{price,jdbcType=INTEGER},
-			</if>
-			<if test="balance != null" >
-				#{balance,jdbcType=INTEGER},
-			</if>
-			<if test="scenicId != null" >
+			<if test="scenicId != null">
 				#{scenicId,jdbcType=INTEGER},
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.deal.Ticket" >
+	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.deal.Ticket">
 		update ticket
-		<set >
-			<if test="createTime != null" >
+		<set>
+			<if test="createTime != null">
 				create_time = #{createTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="updateTime != null" >
+			<if test="updateTime != null">
 				update_time = #{updateTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="name != null" >
+			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
-			<if test="imgUrl != null" >
+			<if test="imgUrl != null">
 				img_url = #{imgUrl,jdbcType=VARCHAR},
 			</if>
-			<if test="price != null" >
-				price = #{price,jdbcType=INTEGER},
-			</if>
-			<if test="balance != null" >
-				balance = #{balance,jdbcType=INTEGER},
-			</if>
-			<if test="scenicId != null" >
+			<if test="scenicId != null">
 				scenic_id = #{scenicId,jdbcType=INTEGER},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.deal.Ticket" >
+	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.deal.Ticket">
 		update ticket
 		set create_time = #{createTime,jdbcType=TIMESTAMP},
 			update_time = #{updateTime,jdbcType=TIMESTAMP},
 			name = #{name,jdbcType=VARCHAR},
 			img_url = #{imgUrl,jdbcType=VARCHAR},
-			price = #{price,jdbcType=INTEGER},
-			balance = #{balance,jdbcType=INTEGER},
 			scenic_id = #{scenicId,jdbcType=INTEGER}
 		where id = #{id,jdbcType=INTEGER}
 	</update>

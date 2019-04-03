@@ -16,24 +16,12 @@ import java.util.Date;
 @ToString(callSuper = true)
 public class Restaurant extends Business {
 
-	@ApiModelProperty("店名")
-	private String name;
-
 	@ApiModelProperty("开门时间")
-	private Date startTime;
+	private Date noonStartTime;
 	@ApiModelProperty("关门时间")
-	private Date endTime;
-
-	@ApiModelProperty("封面图片地址")
-	private String imgUrl;
-
-	@ApiModelProperty("美食类型")
-	private String type;
-
-	@ApiModelProperty("店面地址")
-	private String address;
-
-	@ApiModelProperty("商家电话号码")
-	private String phone;
-
+	private Date noonEndTime;
+	@ApiModelProperty("开门时间")
+	private Date nightStartTime;
+	@ApiModelProperty("关门时间")
+	private Date nightEndTime;
 }

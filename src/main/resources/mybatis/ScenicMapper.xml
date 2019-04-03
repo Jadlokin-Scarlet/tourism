@@ -5,8 +5,9 @@
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="brief_introduce" property="briefIntroduce" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
-		<result column="area_name" property="areaName" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
 		<result column="score" property="score" jdbcType="DECIMAL" />
 		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
 		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
@@ -14,13 +15,12 @@
 		<result column="lever" property="lever" jdbcType="INTEGER" />
 		<result column="has_p" property="hasP" jdbcType="TINYINT" />
 		<result column="has_wifi" property="hasWifi" jdbcType="TINYINT" />
-		<result column="has_shop" property="hasShop" jdbcType="TINYINT" />
 		<result column="has_wc" property="hasWc" jdbcType="TINYINT" />
-		<result column="has_luggage_storage" property="hasLuggageStorage" jdbcType="TINYINT" />
+		<result column="is_close" property="isClose" jdbcType="TINYINT" />
 	</resultMap>
 	<sql id="Base_Column_List" >
-		id, name, brief_introduce, img_url, area_name, score, start_time, end_time, money_min,
-    lever, has_p, has_wifi, has_shop, has_wc, has_luggage_storage
+		id, name, brief_introduce, phone, img_url, address, score, start_time, end_time,
+    money_min, lever, has_p, has_wifi, has_wc, is_close
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
 		select
@@ -32,18 +32,18 @@
 		delete from scenic
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.tourism.entity.business.Scenic" >
+	<insert id="insert" parameterType="com.tourism.entity.business.Scenic" keyColumn="id">
 		insert into scenic (id, name, brief_introduce,
-							img_url, area_name, score,
-							start_time, end_time, money_min,
-							lever, has_p, has_wifi,
-							has_shop, has_wc, has_luggage_storage
+							phone, img_url, address,
+							score, start_time, end_time,
+							money_min, lever, has_p,
+							has_wifi, has_wc, is_close
 		)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{briefIntroduce,jdbcType=VARCHAR},
-				#{imgUrl,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL},
-				#{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{moneyMin,jdbcType=INTEGER},
-				#{lever,jdbcType=INTEGER}, #{hasP,jdbcType=TINYINT}, #{hasWifi,jdbcType=TINYINT},
-				#{hasShop,jdbcType=TINYINT}, #{hasWc,jdbcType=TINYINT}, #{hasLuggageStorage,jdbcType=TINYINT}
+				#{phone,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+				#{score,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+				#{moneyMin,jdbcType=INTEGER}, #{lever,jdbcType=INTEGER}, #{hasP,jdbcType=TINYINT},
+				#{hasWifi,jdbcType=TINYINT}, #{hasWc,jdbcType=TINYINT}, #{isClose,jdbcType=TINYINT}
 			   )
 	</insert>
 	<insert id="insertSelective" parameterType="com.tourism.entity.business.Scenic" >
@@ -58,11 +58,14 @@
 			<if test="briefIntroduce != null" >
 				brief_introduce,
 			</if>
+			<if test="phone != null" >
+				phone,
+			</if>
 			<if test="imgUrl != null" >
 				img_url,
 			</if>
-			<if test="areaName != null" >
-				area_name,
+			<if test="address != null" >
+				address,
 			</if>
 			<if test="score != null" >
 				score,
@@ -85,14 +88,11 @@
 			<if test="hasWifi != null" >
 				has_wifi,
 			</if>
-			<if test="hasShop != null" >
-				has_shop,
-			</if>
 			<if test="hasWc != null" >
 				has_wc,
 			</if>
-			<if test="hasLuggageStorage != null" >
-				has_luggage_storage,
+			<if test="isClose != null" >
+				is_close,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -105,11 +105,14 @@
 			<if test="briefIntroduce != null" >
 				#{briefIntroduce,jdbcType=VARCHAR},
 			</if>
+			<if test="phone != null" >
+				#{phone,jdbcType=VARCHAR},
+			</if>
 			<if test="imgUrl != null" >
 				#{imgUrl,jdbcType=VARCHAR},
 			</if>
-			<if test="areaName != null" >
-				#{areaName,jdbcType=VARCHAR},
+			<if test="address != null" >
+				#{address,jdbcType=VARCHAR},
 			</if>
 			<if test="score != null" >
 				#{score,jdbcType=DECIMAL},
@@ -132,14 +135,11 @@
 			<if test="hasWifi != null" >
 				#{hasWifi,jdbcType=TINYINT},
 			</if>
-			<if test="hasShop != null" >
-				#{hasShop,jdbcType=TINYINT},
-			</if>
 			<if test="hasWc != null" >
 				#{hasWc,jdbcType=TINYINT},
 			</if>
-			<if test="hasLuggageStorage != null" >
-				#{hasLuggageStorage,jdbcType=TINYINT},
+			<if test="isClose != null" >
+				#{isClose,jdbcType=TINYINT},
 			</if>
 		</trim>
 	</insert>
@@ -152,11 +152,14 @@
 			<if test="briefIntroduce != null" >
 				brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
 			</if>
+			<if test="phone != null" >
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
 			<if test="imgUrl != null" >
 				img_url = #{imgUrl,jdbcType=VARCHAR},
 			</if>
-			<if test="areaName != null" >
-				area_name = #{areaName,jdbcType=VARCHAR},
+			<if test="address != null" >
+				address = #{address,jdbcType=VARCHAR},
 			</if>
 			<if test="score != null" >
 				score = #{score,jdbcType=DECIMAL},
@@ -179,14 +182,11 @@
 			<if test="hasWifi != null" >
 				has_wifi = #{hasWifi,jdbcType=TINYINT},
 			</if>
-			<if test="hasShop != null" >
-				has_shop = #{hasShop,jdbcType=TINYINT},
-			</if>
 			<if test="hasWc != null" >
 				has_wc = #{hasWc,jdbcType=TINYINT},
 			</if>
-			<if test="hasLuggageStorage != null" >
-				has_luggage_storage = #{hasLuggageStorage,jdbcType=TINYINT},
+			<if test="isClose != null" >
+				is_close = #{isClose,jdbcType=TINYINT},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
@@ -195,8 +195,9 @@
 		update scenic
 		set name = #{name,jdbcType=VARCHAR},
 			brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
+			phone = #{phone,jdbcType=VARCHAR},
 			img_url = #{imgUrl,jdbcType=VARCHAR},
-			area_name = #{areaName,jdbcType=VARCHAR},
+			address = #{address,jdbcType=VARCHAR},
 			score = #{score,jdbcType=DECIMAL},
 			start_time = #{startTime,jdbcType=TIMESTAMP},
 			end_time = #{endTime,jdbcType=TIMESTAMP},
@@ -204,14 +205,15 @@
 			lever = #{lever,jdbcType=INTEGER},
 			has_p = #{hasP,jdbcType=TINYINT},
 			has_wifi = #{hasWifi,jdbcType=TINYINT},
-			has_shop = #{hasShop,jdbcType=TINYINT},
 			has_wc = #{hasWc,jdbcType=TINYINT},
-			has_luggage_storage = #{hasLuggageStorage,jdbcType=TINYINT}
+			is_close = #{isClose,jdbcType=TINYINT}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="selectBySelectiveAndPage" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" />
 		from scenic
-		where concat(name,area_name) LIKE "%"#{fuzzyKey}"%"
+		where is_close = 0
+			and concat(name,address) LIKE "%"#{fuzzyKey}"%"
+		order by #{sortKey}
 	</select>
 </mapper>

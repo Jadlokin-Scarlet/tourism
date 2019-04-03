@@ -5,16 +5,17 @@
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="brief_introduce" property="briefIntroduce" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
-		<result column="area_name" property="areaName" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
 		<result column="score" property="score" jdbcType="DECIMAL" />
 		<result column="brand" property="brand" jdbcType="VARCHAR" />
 		<result column="lever" property="lever" jdbcType="INTEGER" />
 		<result column="money_min" property="moneyMin" jdbcType="INTEGER" />
-		<result column="money_max" property="moneyMax" jdbcType="INTEGER" />
+		<result column="is_close" property="isClose" jdbcType="TINYINT" />
 	</resultMap>
 	<sql id="Base_Column_List" >
-		id, name, brief_introduce, img_url, area_name, score, brand, lever, money_min, money_max
+		id, name, brief_introduce, phone, img_url, address, score, brand, lever, money_min, is_close
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
 		select
@@ -26,15 +27,15 @@
 		delete from hotel
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.tourism.entity.business.Hotel" >
+	<insert id="insert" parameterType="com.tourism.entity.business.Hotel" useGeneratedKeys="true" keyProperty="id">
 		insert into hotel (id, name, brief_introduce,
-						   img_url, area_name, score,
-						   brand, lever, money_min,
-						   money_max)
+						   phone, img_url, address,
+						   score, brand, lever,
+						   money_min, is_close)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{briefIntroduce,jdbcType=VARCHAR},
-				#{imgUrl,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL},
-				#{brand,jdbcType=VARCHAR}, #{lever,jdbcType=INTEGER}, #{moneyMin,jdbcType=INTEGER},
-				#{moneyMax,jdbcType=INTEGER})
+				#{phone,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+				#{score,jdbcType=DECIMAL}, #{brand,jdbcType=VARCHAR}, #{lever,jdbcType=INTEGER},
+				#{moneyMin,jdbcType=INTEGER} #{isClose,jdbcType=TINYINT})
 	</insert>
 	<insert id="insertSelective" parameterType="com.tourism.entity.business.Hotel" >
 		insert into hotel
@@ -48,11 +49,14 @@
 			<if test="briefIntroduce != null" >
 				brief_introduce,
 			</if>
+			<if test="phone != null" >
+				phone,
+			</if>
 			<if test="imgUrl != null" >
 				img_url,
 			</if>
-			<if test="areaName != null" >
-				area_name,
+			<if test="address != null" >
+				address,
 			</if>
 			<if test="score != null" >
 				score,
@@ -66,8 +70,8 @@
 			<if test="moneyMin != null" >
 				money_min,
 			</if>
-			<if test="moneyMax != null" >
-				money_max,
+			<if test="isClose != null" >
+				is_close,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -80,11 +84,14 @@
 			<if test="briefIntroduce != null" >
 				#{briefIntroduce,jdbcType=VARCHAR},
 			</if>
+			<if test="phone != null" >
+				#{phone,jdbcType=VARCHAR},
+			</if>
 			<if test="imgUrl != null" >
 				#{imgUrl,jdbcType=VARCHAR},
 			</if>
-			<if test="areaName != null" >
-				#{areaName,jdbcType=VARCHAR},
+			<if test="address != null" >
+				#{address,jdbcType=VARCHAR},
 			</if>
 			<if test="score != null" >
 				#{score,jdbcType=DECIMAL},
@@ -98,8 +105,8 @@
 			<if test="moneyMin != null" >
 				#{moneyMin,jdbcType=INTEGER},
 			</if>
-			<if test="moneyMax != null" >
-				#{moneyMax,jdbcType=INTEGER},
+			<if test="isClose != null" >
+				#{isClose,jdbcType=TINYINT},
 			</if>
 		</trim>
 	</insert>
@@ -112,11 +119,14 @@
 			<if test="briefIntroduce != null" >
 				brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
 			</if>
+			<if test="phone != null" >
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
 			<if test="imgUrl != null" >
 				img_url = #{imgUrl,jdbcType=VARCHAR},
 			</if>
-			<if test="areaName != null" >
-				area_name = #{areaName,jdbcType=VARCHAR},
+			<if test="address != null" >
+				address = #{address,jdbcType=VARCHAR},
 			</if>
 			<if test="score != null" >
 				score = #{score,jdbcType=DECIMAL},
@@ -130,8 +140,8 @@
 			<if test="moneyMin != null" >
 				money_min = #{moneyMin,jdbcType=INTEGER},
 			</if>
-			<if test="moneyMax != null" >
-				money_max = #{moneyMax,jdbcType=INTEGER},
+			<if test="isClose != null" >
+				is_close = #{isClose,jdbcType=TINYINT},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
@@ -140,23 +150,24 @@
 		update hotel
 		set name = #{name,jdbcType=VARCHAR},
 			brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
+			phone = #{phone,jdbcType=VARCHAR},
 			img_url = #{imgUrl,jdbcType=VARCHAR},
-			area_name = #{areaName,jdbcType=VARCHAR},
+			address = #{address,jdbcType=VARCHAR},
 			score = #{score,jdbcType=DECIMAL},
 			brand = #{brand,jdbcType=VARCHAR},
 			lever = #{lever,jdbcType=INTEGER},
 			money_min = #{moneyMin,jdbcType=INTEGER},
-			money_max = #{moneyMax,jdbcType=INTEGER}
+			is_close = #{isClose,jdbcType=TINYINT}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="selectBySelectiveAndPage" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" />
 		from hotel
-		WHERE lever &gt;= #{leverMin}
-			and lever &lt;= #{leverMax}
-			and money_min &gt;= #{moneyMin}
-		  	and money_max &lt;= #{moneyMax}
-			and concat(name,area_name,brand) LIKE "%"#{fuzzyKey}"%"
+		WHERE is_close = 0
+		    and lever in <foreach collection="leverList" item="lever" open="(" close=")" separator=",">#{lever}</foreach>
+			and (select count(price) from room where hotel_id = hotel.id and price &gt;= #{moneyMin} and price &lt;= #{moneyMax}) != 0
+			and concat(name,address,brand) LIKE "%"#{fuzzyKey}"%"
+		order by #{sortKey}
 	</select>
 
 

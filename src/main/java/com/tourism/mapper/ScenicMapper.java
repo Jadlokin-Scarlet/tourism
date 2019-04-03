@@ -23,6 +23,7 @@ public interface ScenicMapper {
 
     List<Scenic> selectBySelectiveAndPage(
             @Param("fuzzyKey") String fuzzyKey,
+            @Param("sortKey")String sortKey,
             @Param("currPage")Integer page,
             @Param("pageSize")Integer pageSize);
 }

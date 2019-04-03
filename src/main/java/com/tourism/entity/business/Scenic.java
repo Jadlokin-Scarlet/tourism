@@ -30,11 +30,7 @@ public class Scenic extends Business {
 	private boolean hasP;
 	@ApiModelProperty("是否有wifi")
 	private boolean hasWifi;
-	@ApiModelProperty("是否有便利店")
-	private boolean hasShop;
 	@ApiModelProperty("是否有卫生间")
 	private boolean hasWc;
-	@ApiModelProperty("是否有行李寄存")
-	private boolean hasLuggageStorage;
 
 }

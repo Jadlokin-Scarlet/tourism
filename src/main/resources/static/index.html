@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>主页</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-
+    {{data}}
 </body>
+<script>
+    import axios from 'axios'
+    Vue.prototype.axios = axios;
+
+    new Vue({
+        el: '#app',
+        data(){
+            return {data:[]}
+        },
+        mounted(){
+            this.axios.get("http://10.210.96.229:8080/api/hotel")
+                .then(a => data = a);
+        }
+    })
+
+</script>
 </html>
