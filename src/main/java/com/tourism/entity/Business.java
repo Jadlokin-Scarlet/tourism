@@ -22,7 +22,7 @@ public class Business {
 	private String briefIntroduce;
 	@ApiModelProperty("商家电话号码")
 	private String phone;
-	@ApiModelProperty(value = "封面uri",example = "http://10.210.96.229:8081/default.png")
+	@ApiModelProperty("封面uri")
 	private String imgUrl;
 
 	@ApiModelProperty("地址")

@@ -31,7 +31,16 @@ public class ScenicService {
 			return 1;
 		}
 		scenic.setClose(true);
-		scenicMapper.updateByPrimaryKey(scenic);
+		scenicMapper.updateByPrimaryKeySelective(scenic);
 		return 0;
+	}
+
+	public Scenic createOrUpdateScenic(Scenic scenic) {
+		if(scenic.getId() == 0){
+			scenicMapper.insertSelective(scenic);
+		}else {
+			scenicMapper.updateByPrimaryKeySelective(scenic);
+		}
+		return scenicMapper.selectByPrimaryKey(scenic.getId());
 	}
 }

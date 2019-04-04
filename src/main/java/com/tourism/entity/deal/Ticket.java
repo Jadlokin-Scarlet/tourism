@@ -14,6 +14,11 @@ import java.util.List;
 @Getter@Setter@ToString(callSuper = true)
 public class Ticket extends Deal {
 
+	@ApiModelProperty("单价")
+	private int price;
+	@ApiModelProperty("余量")
+	private int balance;
+
 	@ApiModelProperty("所属景区id")
 	private Integer scenicId;
 

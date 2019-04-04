@@ -27,7 +27,7 @@
 		delete from hotel
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.tourism.entity.business.Hotel" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="com.tourism.entity.business.Hotel" keyProperty="id">
 		insert into hotel (id, name, brief_introduce,
 						   phone, img_url, address,
 						   score, brand, lever,
@@ -35,9 +35,9 @@
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{briefIntroduce,jdbcType=VARCHAR},
 				#{phone,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
 				#{score,jdbcType=DECIMAL}, #{brand,jdbcType=VARCHAR}, #{lever,jdbcType=INTEGER},
-				#{moneyMin,jdbcType=INTEGER} #{isClose,jdbcType=TINYINT})
+				#{moneyMin,jdbcType=INTEGER}, #{isClose,jdbcType=TINYINT})
 	</insert>
-	<insert id="insertSelective" parameterType="com.tourism.entity.business.Hotel" >
+	<insert id="insertSelective" parameterType="com.tourism.entity.business.Hotel" keyProperty="id" >
 		insert into hotel
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null" >
@@ -110,7 +110,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.business.Hotel" >
+	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.business.Hotel" keyProperty="id" >
 		update hotel
 		<set >
 			<if test="name != null" >
@@ -146,7 +146,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.business.Hotel" >
+	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.business.Hotel" keyProperty="id" >
 		update hotel
 		set name = #{name,jdbcType=VARCHAR},
 			brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
@@ -165,10 +165,10 @@
 		from hotel
 		WHERE is_close = 0
 		    and lever in <foreach collection="leverList" item="lever" open="(" close=")" separator=",">#{lever}</foreach>
-			and (select count(price) from room where hotel_id = hotel.id and price &gt;= #{moneyMin} and price &lt;= #{moneyMax}) != 0
 			and concat(name,address,brand) LIKE "%"#{fuzzyKey}"%"
 		order by #{sortKey}
 	</select>
+	<!--# 			and (select count(price) from room where hotel_id = hotel.id and price &gt;= #{moneyMin} and price &lt;= #{moneyMax}) != 0-->
 
 
 </mapper>

@@ -44,9 +44,9 @@
         </javaClientGenerator>
 
         <!-- 相关表的配置 -->
-        <!--<table tableName="hotel" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <table tableName="hotel" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
         <!--<table tableName="restaurant" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
-        <table tableName="scenic" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <!--<table tableName="scenic" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
         <!--<table tableName="ticket" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
         <!--<table tableName="order" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--enableUpdateByExample="false"/>-->

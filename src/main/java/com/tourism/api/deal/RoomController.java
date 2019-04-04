@@ -1,25 +1,28 @@
 package com.tourism.api.deal;
 
+import com.tourism.entity.business.Hotel;
 import com.tourism.entity.deal.Room;
 import com.tourism.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Controller
 @Api("RoomApi")
 @RequestMapping("api/hotel/{hotelId}/room")
 @Validated
+@Slf4j
 public class RoomController {
 
 	private RoomService roomService;
@@ -35,5 +38,23 @@ public class RoomController {
 	public ResponseEntity<List<Room>> getAllRoomByHotelId(@PathVariable@Min(1) Integer hotelId){
 		return ResponseEntity.ok(roomService.getAllRoomByHotelId(hotelId));
 	}
+
+
+	@PostMapping(value = "",produces = "application/json")
+	@ApiOperation(value = "批量新建或修改酒店",produces = "application/json")
+	public ResponseEntity<List<Room>> createOrUpdateHotel(@RequestBody @NotNull List<Room> rooms){
+		log.debug(rooms.toString());
+		return ResponseEntity.ok(roomService.createOrUpdateHotels(rooms));
+	}
+
+	@DeleteMapping("/{roomId}")
+	@ApiOperation("删除房间 by id")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "roomId",value = "景区id",required = true,dataType = "int",paramType = "path"),
+	})
+	public ResponseEntity<Integer> deleteScenic(@PathVariable@Min(1) Integer roomId){
+		return ResponseEntity.ok(roomService.deleteRoomById(roomId));
+	}
+
 
 }

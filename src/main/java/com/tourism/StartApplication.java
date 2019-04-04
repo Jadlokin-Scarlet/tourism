@@ -15,10 +15,12 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Properties;
+import java.util.TimeZone;
 
 @SpringBootApplication
 @MapperScan("com.tourism.mapper")
@@ -29,6 +31,10 @@ public class StartApplication {
         SpringApplication.run(StartApplication.class, args);
     }
 
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
     @Bean
     public Docket createRestApi() {

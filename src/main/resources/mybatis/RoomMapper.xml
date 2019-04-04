@@ -24,7 +24,7 @@
 		delete from room
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.tourism.entity.deal.Room" >
+	<insert id="insert" parameterType="com.tourism.entity.deal.Room" keyProperty="id" >
 		insert into room (id, create_time, update_time,
 						  name, img_url, price,
 						  balance, hotel_id)
@@ -32,7 +32,7 @@
 				#{name,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
 				#{balance,jdbcType=INTEGER}, #{hotelId,jdbcType=INTEGER})
 	</insert>
-	<insert id="insertSelective" parameterType="com.tourism.entity.deal.Room" >
+	<insert id="insertSelective" parameterType="com.tourism.entity.deal.Room" keyProperty="id" >
 		insert into room
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null" >
@@ -87,7 +87,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.deal.Room" >
+	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.deal.Room" keyProperty="id" >
 		update room
 		<set >
 			<if test="createTime != null" >
@@ -114,7 +114,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.deal.Room" >
+	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.deal.Room" keyProperty="id" >
 		update room
 		set create_time = #{createTime,jdbcType=TIMESTAMP},
 			update_time = #{updateTime,jdbcType=TIMESTAMP},

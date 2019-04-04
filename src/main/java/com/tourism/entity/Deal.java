@@ -1,5 +1,6 @@
 package com.tourism.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -17,19 +18,22 @@ public class Deal {
     @ApiModelProperty("商品id")
     private int id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("商品上架时间")
-    private Date createTime;
+    private Date createTime = new Date();
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("商品最后更新时间")
-    private Date updateTime;
+    private Date updateTime = new Date();
 
     @ApiModelProperty("商品名称")
     private String name;
-    @ApiModelProperty("封面uri")
-    private String imgUrl;
+    @ApiModelProperty(value = "封面uri",example = "http://10.210.96.229:8081/default.png")
+    private String imgUrl = "http://10.210.96.229:8081/default.png";
 
-    @ApiModelProperty("单价")
-    private int price;
-    @ApiModelProperty("余量")
-    private int balance;
+    @ApiModelProperty(value = "单价",example = "999999999")
+    private int price = 999999999;
+    @ApiModelProperty(value = "余量",example = "0")
+    private int balance = 0;
+
 
 }

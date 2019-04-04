@@ -21,6 +21,7 @@ public class HotelService {
 	}
 
 	public List<Hotel> getHotelsByKey(Integer page, Integer pageSize, String fuzzyKey,String sortKey, Integer moneyMax, Integer moneyMin, List<Integer> leverList) {
+
 		return hotelMapper.selectBySelectiveAndPage(fuzzyKey,sortKey,leverList,moneyMin,moneyMax,page,pageSize);
 	}
 
@@ -34,10 +35,11 @@ public class HotelService {
 	}
 
 	public Hotel createOrUpdateHotel(Hotel hotel) {
+		log.debug(hotel.toString());
 		if(hotel.getId() == 0){
-			hotelMapper.insert(hotel);
+			hotelMapper.insertSelective(hotel);
 		}else {
-			hotelMapper.updateByPrimaryKey(hotel);
+			hotelMapper.updateByPrimaryKeySelective(hotel);
 		}
 		return hotelMapper.selectByPrimaryKey(hotel.getId());
 	}
@@ -48,7 +50,7 @@ public class HotelService {
 			return 1;
 		}
 		hotel.setClose(true);
-		hotelMapper.updateByPrimaryKey(hotel);
+		hotelMapper.updateByPrimaryKeySelective(hotel);
 		return 0;
 	}
 }

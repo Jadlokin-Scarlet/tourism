@@ -32,7 +32,7 @@
 		delete from scenic
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.tourism.entity.business.Scenic" keyColumn="id">
+	<insert id="insert" parameterType="com.tourism.entity.business.Scenic" keyProperty="id">
 		insert into scenic (id, name, brief_introduce,
 							phone, img_url, address,
 							score, start_time, end_time,
@@ -46,7 +46,7 @@
 				#{hasWifi,jdbcType=TINYINT}, #{hasWc,jdbcType=TINYINT}, #{isClose,jdbcType=TINYINT}
 			   )
 	</insert>
-	<insert id="insertSelective" parameterType="com.tourism.entity.business.Scenic" >
+	<insert id="insertSelective" parameterType="com.tourism.entity.business.Scenic" keyProperty="id">
 		insert into scenic
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null" >
@@ -143,7 +143,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.business.Scenic" >
+	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.business.Scenic" keyProperty="id" >
 		update scenic
 		<set >
 			<if test="name != null" >
@@ -191,7 +191,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.business.Scenic" >
+	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.business.Scenic" keyProperty="id" >
 		update scenic
 		set name = #{name,jdbcType=VARCHAR},
 			brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},

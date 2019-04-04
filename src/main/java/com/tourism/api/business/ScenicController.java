@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.List;
 @Api("scenicApi")
 @RestController
 @RequestMapping("/api/scenic")
+@Slf4j
 public class ScenicController {
 
 	private ScenicService scenicService;
@@ -33,7 +35,7 @@ public class ScenicController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "page",value = "第几页",defaultValue = "1",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "pageSize",value = "每页长度",defaultValue = "10",dataType = "int",paramType = "query"),
-			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键词",dataType = "String",paramType = "query"),
+			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键词",defaultValue = "杭州",dataType = "String",paramType = "query"),
 			@ApiImplicitParam(name = "sortKey",value = "排序的列",defaultValue = "score",dataType = "String",paramType = "query")
 
 	})
@@ -43,7 +45,9 @@ public class ScenicController {
 			@RequestParam(required = false,defaultValue = "")@NotNull String fuzzyKey,
 			@RequestParam(required = false,defaultValue = "score")@NotBlank String sortKey
 			){
-		return ResponseEntity.ok(scenicService.getScenicByKey(page,pageSize,fuzzyKey,sortKey));
+		List<Scenic> scenics = scenicService.getScenicByKey(page, pageSize, fuzzyKey, sortKey);
+		log.debug(scenics.toString());
+		return ResponseEntity.ok(scenics);
 	}
 
 	@GetMapping("/{scenicId}")
@@ -55,11 +59,11 @@ public class ScenicController {
 		return ResponseEntity.ok(scenicService.getScenicById(scenicId));
 	}
 
-//	@PostMapping(value = "",produces = "application/json")
-//	@ApiOperation(value = "新建或修改酒店",produces = "application/json")
-//	public ResponseEntity<Hotel> createOrUpdateHotel(@RequestBody @NotNull Hotel hotel){
-//		return ResponseEntity.ok(hotelService.createOrUpdateHotel(hotel));
-//	}
+	@PostMapping(value = "",produces = "application/json")
+	@ApiOperation(value = "新建或修改景区",produces = "application/json")
+	public ResponseEntity<Scenic> createOrUpdateHotel(@RequestBody @NotNull Scenic scenic){
+		return ResponseEntity.ok(scenicService.createOrUpdateScenic(scenic));
+	}
 
 
 	@DeleteMapping("/{scenicId}")

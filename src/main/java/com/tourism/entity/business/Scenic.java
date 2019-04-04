@@ -1,5 +1,6 @@
 package com.tourism.entity.business;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tourism.entity.Business;
 import com.tourism.entity.Deal;
 import io.swagger.annotations.ApiModel;
@@ -15,8 +16,10 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 public class Scenic extends Business {
-	@ApiModelProperty("开门时间")
+	@JsonFormat(pattern = "HH:mm:ss")
+	@ApiModelProperty(value = "开门时间")
 	private Date startTime;
+	@JsonFormat(pattern = "HH:mm:ss")
 	@ApiModelProperty("关门时间")
 	private Date endTime;
 
