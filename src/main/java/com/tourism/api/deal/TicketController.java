@@ -44,18 +44,23 @@ public class TicketController {
 		@ApiImplicitParam(name = "tickets",value = "门票列表",dataTypeClass = Ticket.class,paramType = "body",allowMultiple=true)
 	})
 	public ResponseEntity<List<Ticket>> createOrUpdateHotel(
-			@PathVariable@Min(1) Integer scenicId,
-			@RequestBody @NotNull List<Ticket> tickets){
+			@PathVariable@Min(0) Integer scenicId,
+			@RequestBody @NotNull List<Ticket> tickets
+	){
 		if(tickets.isEmpty())return ResponseEntity.ok(tickets);
-		return ResponseEntity.ok(ticketService.createOrUpdateTickets(tickets));
+		return ResponseEntity.ok(ticketService.createOrUpdateTickets(scenicId,tickets));
 	}
 
 	@DeleteMapping("/{ticketId}")
 	@ApiOperation("删除门票 by id")
 	@ApiImplicitParams({
+			@ApiImplicitParam(name = "scenicId", value = "景区id", required = true, dataType = "int", paramType = "path"),
 			@ApiImplicitParam(name = "ticketId",value = "景区id",required = true,dataType = "int",paramType = "path"),
 	})
-	public ResponseEntity<Integer> deleteScenic(@PathVariable@Min(1) Integer ticketId){
+	public ResponseEntity<Integer> deleteScenic(
+			@PathVariable@Min(0) Integer scenicId,
+			@PathVariable@Min(1) Integer ticketId
+	){
 		return ResponseEntity.ok(ticketService.deleteTicketById(ticketId));
 	}
 

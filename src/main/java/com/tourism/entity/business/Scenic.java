@@ -24,7 +24,7 @@ public class Scenic extends Business {
 	private Date endTime;
 
 	@ApiModelProperty("价格多少钱起")
-	private String moneyMin;
+	private int moneyMin;
 
 	@ApiModelProperty("几a景区")
 	private Integer lever;

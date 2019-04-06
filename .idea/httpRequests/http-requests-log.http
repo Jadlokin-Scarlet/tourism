@@ -1,3 +1,11 @@
+GET http://localhost:8080/api/scenic/{scenicId}/ticket
+
+###
+
+GET http://localhost:8080/api/scenic/{scenicId}/ticket
+
+###
+
 GET http://localhost:8080/api/users/
 
 ###

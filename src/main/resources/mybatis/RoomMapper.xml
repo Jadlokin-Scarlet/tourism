@@ -28,7 +28,7 @@
 		insert into room (id, create_time, update_time,
 						  name, img_url, price,
 						  balance, hotel_id)
-		values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		values (#{id,jdbcType=INTEGER}, now(), now(),
 				#{name,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
 				#{balance,jdbcType=INTEGER}, #{hotelId,jdbcType=INTEGER})
 	</insert>
@@ -65,10 +65,10 @@
 				#{id,jdbcType=INTEGER},
 			</if>
 			<if test="createTime != null" >
-				#{createTime,jdbcType=TIMESTAMP},
+				now(),
 			</if>
 			<if test="updateTime != null" >
-				#{updateTime,jdbcType=TIMESTAMP},
+				now(),
 			</if>
 			<if test="name != null" >
 				#{name,jdbcType=VARCHAR},
@@ -90,11 +90,8 @@
 	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.deal.Room" keyProperty="id" >
 		update room
 		<set >
-			<if test="createTime != null" >
-				create_time = #{createTime,jdbcType=TIMESTAMP},
-			</if>
 			<if test="updateTime != null" >
-				update_time = #{updateTime,jdbcType=TIMESTAMP},
+				update_time = now(),
 			</if>
 			<if test="name != null" >
 				name = #{name,jdbcType=VARCHAR},
@@ -108,21 +105,16 @@
 			<if test="balance != null" >
 				balance = #{balance,jdbcType=INTEGER},
 			</if>
-			<if test="hotelId != null" >
-				hotel_id = #{hotelId,jdbcType=INTEGER},
-			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.deal.Room" keyProperty="id" >
 		update room
-		set create_time = #{createTime,jdbcType=TIMESTAMP},
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+		set update_time = now(),
 			name = #{name,jdbcType=VARCHAR},
 			img_url = #{imgUrl,jdbcType=VARCHAR},
 			price = #{price,jdbcType=INTEGER},
-			balance = #{balance,jdbcType=INTEGER},
-			hotel_id = #{hotelId,jdbcType=INTEGER}
+			balance = #{balance,jdbcType=INTEGER}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="selectByHotelId" resultMap="BaseResultMap">

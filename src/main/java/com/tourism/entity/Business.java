@@ -1,11 +1,14 @@
 package com.tourism.entity;
 
+import com.tourism.util.MyUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.util.Arrays;
 
 @ApiModel("商家(酒店卖房间,景区卖门票,车店借车,餐馆卖吃的)实体类")
 @Getter
@@ -15,6 +18,9 @@ public class Business {
 
 	@ApiModelProperty(value = "id",example = "0")
 	private int id;
+
+	@ApiModelProperty("类别")
+	private String type = MyUtil.getEnd(this.getClass().getName().split("\\.")).toLowerCase();
 
 	@ApiModelProperty("名字")
 	private String name;

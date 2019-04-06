@@ -39,11 +39,11 @@ public class RoomController {
 		return ResponseEntity.ok(roomService.getAllRoomByHotelId(hotelId));
 	}
 
-
 	@PostMapping(value = "",produces = "application/json")
 	@ApiOperation(value = "批量新建或修改酒店",produces = "application/json")
-	public ResponseEntity<List<Room>> createOrUpdateHotel(@RequestBody @NotNull List<Room> rooms){
+	public ResponseEntity<List<Room>> createOrUpdateHotel(@PathVariable@Min(0) Integer hotelId,@RequestBody @NotNull List<Room> rooms){
 		log.debug(rooms.toString());
+		rooms.forEach(room -> room.setHotelId(hotelId));
 		return ResponseEntity.ok(roomService.createOrUpdateHotels(rooms));
 	}
 
@@ -55,6 +55,5 @@ public class RoomController {
 	public ResponseEntity<Integer> deleteScenic(@PathVariable@Min(1) Integer roomId){
 		return ResponseEntity.ok(roomService.deleteRoomById(roomId));
 	}
-
 
 }

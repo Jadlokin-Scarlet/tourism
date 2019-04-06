@@ -39,7 +39,7 @@ public class UserService {
 				.map(userId -> userMapper.selectByPrimaryKey(userId))
 				.collect(Collectors.toList());
 	}
-
+	@Transactional
 	public User createUserByCode(String code) {
 		WxCodeResultDto openId = wxTool.getUserOpenIdAndSessionKeyByCode(code);
 		return userMapper.selectByOpenId(openId);
