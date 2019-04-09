@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Api("areaApi")
+//@Api("areaApi")
 @RestController
 @RequestMapping("/api/area")
 public class AreaController {

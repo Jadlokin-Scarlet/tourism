@@ -1,5 +1,6 @@
 package com.tourism.service;
 
+import com.tourism.entity.DaoDto.Trip;
 import com.tourism.entity.business.Restaurant;
 import com.tourism.mapper.RestaurantMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,18 @@ public class RestaurantService {
 	}
 	@Transactional
 	public Restaurant createOrUpdateRestaurant(Restaurant restaurant) {
-		return null;
+		if(restaurant.getId() == 0){
+			restaurantMapper.insertSelective(restaurant);
+		}else {
+			restaurantMapper.updateByPrimaryKeySelective(restaurant);
+		}
+		return getRestaurantById(restaurant.getId());
 	}
 	@Transactional
 	public Integer deleteScenic(Integer restaurantId) {
+		Restaurant restaurant = getRestaurantById(restaurantId);
+		restaurant.setClose(true);
+		restaurantMapper.updateByPrimaryKeySelective(restaurant);
 		return null;
 	}
 }

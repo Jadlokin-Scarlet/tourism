@@ -1,5 +1,6 @@
 package com.tourism.api;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.tourism.entity.Business;
 import com.tourism.entity.DaoDto.Trip;
 import com.tourism.entity.DaoDto.TripDetail;
@@ -10,6 +11,7 @@ import com.tourism.service.TripService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +29,7 @@ import java.util.List;
 @Validated
 @Slf4j
 public class TripController {
-
+	public interface TripAndBusinessDto extends Trip.TripDto,Business.BusinessBaseDto {}
 	private TripService tripService;
 
 	@Autowired
@@ -36,6 +38,7 @@ public class TripController {
 	}
 
 	@GetMapping(value = "",produces = "application/json")
+	@JsonView(TripAndBusinessDto.class)
 	@ApiOperation(value = "查询行程信息列表",notes = "可选分页参数page和pageSize,fuzzyKey",produces = "application/json")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "page",value = "第几页",defaultValue = "1",dataType = "int",paramType = "query"),
@@ -56,7 +59,13 @@ public class TripController {
 	@ApiModelProperty("查询行程 by id")
 	@ApiImplicitParam(name = "tripId", value = "行程id", required = true, dataType = "int", paramType = "path")
 	public ResponseEntity<Trip> getTripById(@PathVariable@Min(1) Integer tripId){
-		return ResponseEntity.ok(tripService.getTripById(tripId));
+		Trip trip;
+		try{
+			trip = tripService.getTripById(tripId);
+		}catch (NullPointerException e){
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		return ResponseEntity.ok(trip);
 	}
 
 	@PostMapping("")

@@ -1,8 +1,12 @@
 package com.tourism.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.tourism.util.MyUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,13 +19,19 @@ import java.util.List;
 @Setter
 @ToString
 public class Deal {
+
     @ApiModelProperty("商品id")
     private int id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty("类别")
+    private String type = MyUtil.getEnd(this.getClass().getName().split("\\.")).toLowerCase();
+
+    @JsonIgnore
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("商品上架时间")
-    private Date createTime = new Date();
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+    @JsonIgnore
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("商品最后更新时间")
     private Date updateTime = new Date();
 
