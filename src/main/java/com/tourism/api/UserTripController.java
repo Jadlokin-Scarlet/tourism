@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping(value = "/api/user/{userId}/trip",produces = "application/json")
 @Validated
 @Slf4j
-//@JsonView(UserTripController.TripAndBusinessDto.class)
+@JsonView(UserTripController.TripAndBusinessDto.class)
 public class UserTripController {
 
 	interface TripAndBusinessDto extends Trip.TripDto,Business.BusinessBaseDto {}
@@ -93,6 +93,7 @@ public class UserTripController {
 
 	@PostMapping("/nowTrip/tripItem")
 	@ApiOperation("添加行程条目")
+	@JsonView(UserTripController.TripAndBusinessDto.class)
 	public ResponseEntity<Trip> addItemToUserTrip(
 			@PathVariable Integer userId,
 			@PathVariable TripDetail tripItem

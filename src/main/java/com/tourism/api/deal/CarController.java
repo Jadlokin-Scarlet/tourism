@@ -43,7 +43,7 @@ public class CarController {
 	public ResponseEntity<List<Car>> createOrUpdateCarShop(@PathVariable@Min(0) Integer carShopId,@RequestBody @NotNull List<Car> cars){
 		log.debug(cars.toString());
 		cars.forEach(car -> car.setCarShopId(carShopId));
-		return ResponseEntity.ok(carService.createOrUpdateCar(cars));
+		return ResponseEntity.ok(carService.createOrUpdateCar(carShopId,cars));
 	}
 
 	@DeleteMapping("/{carId}")

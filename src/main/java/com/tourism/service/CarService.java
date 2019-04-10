@@ -28,7 +28,7 @@ public class CarService {
 		return carMapper.selectByCarShopId(carShopId);
 	}
 	@Transactional
-	public List<Car> createOrUpdateCar(List<Car> cars) {
+	public List<Car> createOrUpdateCar(Integer carShopId,List<Car> cars) {
 		cars.forEach(car-> {
 			car.setUpdateTime(new Date());
 			car.setCreateTime(null);
@@ -38,7 +38,7 @@ public class CarService {
 				carMapper.updateByPrimaryKeySelective(car);
 			}
 		});
-		return cars.stream().map(car -> carMapper.selectByPrimaryKey(car.getId())).collect(Collectors.toList());
+		return getAllCarByCarShopId(carShopId);
 	}
 	@Transactional
 	public Integer deleteCarById(Integer carId) {

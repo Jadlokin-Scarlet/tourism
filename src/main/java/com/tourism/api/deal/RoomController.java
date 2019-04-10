@@ -44,7 +44,7 @@ public class RoomController {
 	public ResponseEntity<List<Room>> createOrUpdateHotel(@PathVariable@Min(0) Integer hotelId,@RequestBody @NotNull List<Room> rooms){
 		log.debug(rooms.toString());
 		rooms.forEach(room -> room.setHotelId(hotelId));
-		return ResponseEntity.ok(roomService.createOrUpdateHotels(rooms));
+		return ResponseEntity.ok(roomService.createOrUpdateHotels(hotelId,rooms));
 	}
 
 	@DeleteMapping("/{roomId}")

@@ -28,7 +28,7 @@ public class RoomService {
 		return roomMapper.selectByHotelId(hotelId);
 	}
 	@Transactional
-	public List<Room> createOrUpdateHotels(List<Room> rooms) {
+	public List<Room> createOrUpdateHotels(Integer hotelId,List<Room> rooms) {
 		log.warn(rooms.toString());
 		rooms.forEach(room-> {
 			room.setCreateTime(null);
@@ -39,7 +39,7 @@ public class RoomService {
 				roomMapper.updateByPrimaryKeySelective(room);
 			}
 		});
-		return rooms.stream().map(room -> roomMapper.selectByPrimaryKey(room.getId())).collect(Collectors.toList());
+		return getAllRoomByHotelId(hotelId);
 	}
 	@Transactional
 	public Integer deleteRoomById(Integer roomId) {
