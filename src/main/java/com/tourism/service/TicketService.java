@@ -7,6 +7,7 @@ import com.tourism.entity.deal.TicketEveryDay;
 import com.tourism.mapper.ScenicMapper;
 import com.tourism.mapper.TicketMapper;
 import com.tourism.mapper.TicketMoreMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +17,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class TicketService {
 	private TicketMapper ticketMapper;
 	private TicketMoreMapper ticketMoreMapper;
 	private ScenicMapper scenicMapper;
-
 	@Autowired
 	public TicketService(TicketMapper ticketMapper, TicketMoreMapper ticketMoreMapper, ScenicMapper scenicMapper) {
 		this.ticketMapper = ticketMapper;
@@ -41,19 +42,18 @@ public class TicketService {
 	}
 	@Transactional
 	public List<Ticket> createOrUpdateTickets(Integer scenicId,List<Ticket> tickets) {
+		log.warn(tickets.toString());
+		deleteAllTicket(scenicId);
 		tickets.forEach(ticket-> {
 			ticket.setScenicId(scenicId);
-			if (ticket.getId() == 0) {
-				ticketMapper.insertSelective(ticket);
-				ticket.getTimes().stream()
-						.map(ticketTime -> new TicketMore(0,ticket.getId(),ticketTime.getUseTime(),ticketTime.getPrice(),ticketTime.getBalance()))
-						.forEach(ticketMore -> ticketMoreMapper.insertSelective(ticketMore));
-			} else {
-				ticketMapper.updateByPrimaryKeySelective(ticket);
-				ticket.getTimes().stream()
-						.map(ticketTime -> new TicketMore(0,ticket.getId(),ticketTime.getUseTime(),ticketTime.getPrice(),ticketTime.getBalance()))
-						.forEach(ticketMore -> ticketMoreMapper.updateByPrimaryKeySelective(ticketMore));
+			if (ticket.getId() != 0) {
+				ticket.setId(0);
 			}
+			ticketMapper.insertSelective(ticket);
+			ticket.getTimes().stream()
+					.map(ticketTime -> new TicketMore(0,ticket.getId(),ticketTime.getUseTime(),ticketTime.getPrice(),ticketTime.getBalance()))
+					.forEach(ticketMore -> ticketMoreMapper.insertSelective(ticketMore));
+
 		});
 		tickets = getAllTicketByScenicId(scenicId);
 		Scenic scenic = scenicMapper.selectByPrimaryKey(scenicId);
@@ -64,6 +64,7 @@ public class TicketService {
 			scenic.setMoneyMin(moneyMin);
 			scenicMapper.updateByPrimaryKeySelective(scenic);
 		}
+		log.warn(tickets.toString());
 		return tickets;
 	}
 	@Transactional
@@ -74,4 +75,17 @@ public class TicketService {
 		ticketMapper.deleteByPrimaryKey(ticketId);
 		return 0;
 	}
+
+	@Transactional
+	public void deleteAllTicket(Integer scenicId){
+		List<Ticket> tickets = getAllTicketByScenicId(scenicId);
+		tickets.stream()
+				.map(ticket -> ticketMoreMapper.selectByTicketId(ticket.getId()))
+				.forEach(ticketMores -> ticketMores.forEach(
+						ticketMore -> ticketMoreMapper.deleteByPrimaryKey(ticketMore.getId())
+				));
+		tickets.forEach(ticket -> ticketMapper.deleteByPrimaryKey(ticket.getId()));
+
+	}
+
 }

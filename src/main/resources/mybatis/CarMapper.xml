@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tourism.mapper.CarMapper" >
+  <resultMap id="BaseResultMap" type="com.tourism.entity.deal.Car" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="INTEGER" />
+    <result column="car_shop_id" property="carShopId" jdbcType="INTEGER" />
+    <result column="seat_number" property="seatNumber" jdbcType="INTEGER" />
+    <result column="is_automatica_transmission" property="isAutomaticaTransmission" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, name, img_url, price, balance, car_shop_id, seat_number, 
+    is_automatica_transmission
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from car
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from car
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tourism.entity.deal.Car" >
+    insert into car (id, create_time, update_time, 
+      name, img_url, price, 
+      balance, car_shop_id, seat_number, 
+      is_automatica_transmission)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
+      #{balance,jdbcType=INTEGER}, #{carShopId,jdbcType=INTEGER}, #{seatNumber,jdbcType=INTEGER}, 
+      #{isAutomaticaTransmission,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tourism.entity.deal.Car" >
+    insert into car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="carShopId != null" >
+        car_shop_id,
+      </if>
+      <if test="seatNumber != null" >
+        seat_number,
+      </if>
+      <if test="isAutomaticaTransmission != null" >
+        is_automatica_transmission,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="carShopId != null" >
+        #{carShopId,jdbcType=INTEGER},
+      </if>
+      <if test="seatNumber != null" >
+        #{seatNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isAutomaticaTransmission != null" >
+        #{isAutomaticaTransmission,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.deal.Car" >
+    update car
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="carShopId != null" >
+        car_shop_id = #{carShopId,jdbcType=INTEGER},
+      </if>
+      <if test="seatNumber != null" >
+        seat_number = #{seatNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isAutomaticaTransmission != null" >
+        is_automatica_transmission = #{isAutomaticaTransmission,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tourism.entity.deal.Car" >
+    update car
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=INTEGER},
+      car_shop_id = #{carShopId,jdbcType=INTEGER},
+      seat_number = #{seatNumber,jdbcType=INTEGER},
+      is_automatica_transmission = #{isAutomaticaTransmission,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByCarShopId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from car where car_shop_id = #{carShopId}
+  </select>
+</mapper>

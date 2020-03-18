@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tourism.mapper.OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.tourism.entity.deal.OrderDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="deal_id" property="dealId" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="use_time" property="useTime" jdbcType="TIMESTAMP" />
+    <result column="deliver_type" property="deliverType" jdbcType="VARCHAR" />
+    <result column="deliver_state" property="deliverState" jdbcType="VARCHAR" />
+    <result column="star" property="star" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, business_id, business_type, deal_id, pay_time, use_time, deliver_type,
+    deliver_state, star
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tourism.entity.deal.OrderDetail" keyProperty="id">
+    insert into order_detail (id, order_id,
+      business_id, business_type, deal_id, 
+      pay_time, use_time, deliver_type, 
+      deliver_state, star)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER},
+      #{businessId,jdbcType=INTEGER}, #{businessType,jdbcType=VARCHAR}, #{dealId,jdbcType=INTEGER}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{useTime,jdbcType=TIMESTAMP}, #{deliverType,jdbcType=VARCHAR}, 
+      #{deliverState,jdbcType=VARCHAR}, #{star,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tourism.entity.deal.OrderDetail" keyProperty="id">
+    insert into order_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="dealId != null" >
+        deal_id,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="useTime != null" >
+        use_time,
+      </if>
+      <if test="deliverType != null" >
+        deliver_type,
+      </if>
+      <if test="deliverState != null" >
+        deliver_state,
+      </if>
+      <if test="star != null" >
+        star,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="dealId != null" >
+        #{dealId,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useTime != null" >
+        #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverType != null" >
+        #{deliverType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverState != null" >
+        #{deliverState,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null" >
+        #{star,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.deal.OrderDetail" keyProperty="id">
+    update order_detail
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="dealId != null" >
+        deal_id = #{dealId,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useTime != null" >
+        use_time = #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverType != null" >
+        deliver_type = #{deliverType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverState != null" >
+        deliver_state = #{deliverState,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null" >
+        star = #{star,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tourism.entity.deal.OrderDetail" keyProperty="id">
+    update order_detail
+    set order_id = #{orderId,jdbcType=INTEGER},
+      business_id = #{businessId,jdbcType=INTEGER},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      deal_id = #{dealId,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      use_time = #{useTime,jdbcType=TIMESTAMP},
+      deliver_type = #{deliverType,jdbcType=VARCHAR},
+      deliver_state = #{deliverState,jdbcType=VARCHAR},
+      star = #{star,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllByOrderId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from order_detail where order_id = #{orderId}
+    order by use_time
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from order_detail order by use_time;
+  </select>
+</mapper>

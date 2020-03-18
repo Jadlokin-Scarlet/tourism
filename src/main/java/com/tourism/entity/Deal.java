@@ -21,7 +21,7 @@ import java.util.List;
 public class Deal {
 
     @ApiModelProperty("商品id")
-    private int id;
+    private int id = 0;
 
     @ApiModelProperty("类别")
     private String type = MyUtil.getEnd(this.getClass().getName().split("\\.")).toLowerCase();
@@ -29,19 +29,19 @@ public class Deal {
     @JsonIgnore
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("商品上架时间")
-    private Date createTime;
+    private Date createTime = new Date();
     @JsonIgnore
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("商品最后更新时间")
     private Date updateTime = new Date();
 
     @ApiModelProperty("商品名称")
-    private String name;
-    @ApiModelProperty(value = "封面uri",example = "http://10.210.96.229:8081/default.png")
-    private String imgUrl = "http://10.210.96.229:8081/default.png";
+    private String name = "";
+    @ApiModelProperty(value = "封面uri",example = "/default.png")
+    private String imgUrl = "/default.png";
 
-    @ApiModelProperty(value = "单价",example = "999999999")
-    private int price = 999999999;
+    @ApiModelProperty(value = "单价",example = "9999999")
+    private int price = 9999999;
     @ApiModelProperty(value = "余量",example = "0")
     private int balance = 0;
 

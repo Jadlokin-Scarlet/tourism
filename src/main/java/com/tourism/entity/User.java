@@ -22,17 +22,17 @@ public class User {
     private Date updateTime;
 
     @ApiModelProperty("昵称")
-    private String nickName;
+    private String nickName = "";
     @ApiModelProperty("微信openID")
-    private String openId;
+    private String openId = "";
     @ApiModelProperty("微信SessionKey")
-    private String sessionKey;
+    private String sessionKey = "";
 
     @ApiModelProperty("性别")
-    private String sex;
+    private String sex = "";
     @ApiModelProperty("手机号")
-    private String phone;
+    private String phone = "";
     @ApiModelProperty("头像图片地址")
-    private String avatarUrl;
+    private String avatarUrl = "";
 
 }

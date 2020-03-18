@@ -31,20 +31,20 @@ public class Business {
 
 	@JsonView(BusinessBaseDto.class)
 	@ApiModelProperty("名字")
-	private String name;
+	private String name = "";
 	@JsonView(BusinessBaseDto.class)
 	@ApiModelProperty("简介")
-	private String briefIntroduce;
+	private String briefIntroduce = "暂无";
 	@JsonView(BusinessBaseDto.class)
 	@ApiModelProperty("商家电话号码")
-	private String phone;
+	private String phone = "";
 	@JsonView(BusinessBaseDto.class)
 	@ApiModelProperty("封面uri")
 	private String imgUrl;
 
 	@JsonView(BusinessBaseDto.class)
 	@ApiModelProperty("地址")
-	private String address;
+	private String address = "杭州";
 	@JsonView(BusinessBaseDto.class)
 	@ApiModelProperty(value = "评分",example = "0")
 	private Double score;

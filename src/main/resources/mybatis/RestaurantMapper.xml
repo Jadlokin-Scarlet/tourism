@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tourism.mapper.HotelMapper">
-	<resultMap id="BaseResultMap" type="com.tourism.entity.business.Hotel" >
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tourism.mapper.RestaurantMapper" >
+	<resultMap id="BaseResultMap" type="com.tourism.entity.business.Restaurant" >
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="brief_introduce" property="briefIntroduce" jdbcType="VARCHAR" />
@@ -9,36 +9,40 @@
 		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
 		<result column="address" property="address" jdbcType="VARCHAR" />
 		<result column="score" property="score" jdbcType="DECIMAL" />
-		<result column="brand" property="brand" jdbcType="VARCHAR" />
-		<result column="lever" property="lever" jdbcType="INTEGER" />
-		<result column="money_min" property="moneyMin" jdbcType="INTEGER" />
+		<result column="noon_start_time" property="noonStartTime" jdbcType="TIMESTAMP" />
+		<result column="noon_end_time" property="noonEndTime" jdbcType="TIMESTAMP" />
+		<result column="night_start_time" property="nightStartTime" jdbcType="TIMESTAMP" />
+		<result column="night_end_time" property="nightEndTime" jdbcType="TIMESTAMP" />
 		<result column="is_close" property="isClose" jdbcType="TINYINT" />
 	</resultMap>
 	<sql id="Base_Column_List" >
-		id, name, brief_introduce, phone, img_url, address, score, brand, lever, money_min, is_close
+		id, name, brief_introduce, phone, img_url, address, score, noon_start_time, noon_end_time,
+    night_start_time, night_end_time, is_close
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
 		select
 		<include refid="Base_Column_List" />
-		from hotel
+		from restaurant
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-		delete from hotel
+	<delete id="closeByPrimaryKey" parameterType="java.lang.Integer" >
+		delete from restaurant
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.tourism.entity.business.Hotel" keyProperty="id">
-		insert into hotel (id, name, brief_introduce,
-						   phone, img_url, address,
-						   score, brand, lever,
-						   money_min, is_close)
+	<insert id="insert" parameterType="com.tourism.entity.business.Restaurant" >
+		insert into restaurant (id, name, brief_introduce,
+								phone, img_url, address,
+								score, noon_start_time, noon_end_time,
+								night_start_time, night_end_time, is_close
+		)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{briefIntroduce,jdbcType=VARCHAR},
 				#{phone,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
-				#{score,jdbcType=DECIMAL}, #{brand,jdbcType=VARCHAR}, #{lever,jdbcType=INTEGER},
-				#{moneyMin,jdbcType=INTEGER}, #{isClose,jdbcType=TINYINT})
+				#{score,jdbcType=DECIMAL}, #{noonStartTime,jdbcType=TIMESTAMP}, #{noonEndTime,jdbcType=TIMESTAMP},
+				#{nightStartTime,jdbcType=TIMESTAMP}, #{nightEndTime,jdbcType=TIMESTAMP}, #{isClose,jdbcType=TINYINT}
+			   )
 	</insert>
-	<insert id="insertSelective" parameterType="com.tourism.entity.business.Hotel" keyProperty="id" >
-		insert into hotel
+	<insert id="insertSelective" parameterType="com.tourism.entity.business.Restaurant" >
+		insert into restaurant
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null" >
 				id,
@@ -61,14 +65,17 @@
 			<if test="score != null" >
 				score,
 			</if>
-			<if test="brand != null" >
-				brand,
+			<if test="noonStartTime != null" >
+				noon_start_time,
 			</if>
-			<if test="lever != null" >
-				lever,
+			<if test="noonEndTime != null" >
+				noon_end_time,
 			</if>
-			<if test="moneyMin != null" >
-				money_min,
+			<if test="nightStartTime != null" >
+				night_start_time,
+			</if>
+			<if test="nightEndTime != null" >
+				night_end_time,
 			</if>
 			<if test="isClose != null" >
 				is_close,
@@ -96,22 +103,25 @@
 			<if test="score != null" >
 				#{score,jdbcType=DECIMAL},
 			</if>
-			<if test="brand != null" >
-				#{brand,jdbcType=VARCHAR},
+			<if test="noonStartTime != null" >
+				#{noonStartTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="lever != null" >
-				#{lever,jdbcType=INTEGER},
+			<if test="noonEndTime != null" >
+				#{noonEndTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="moneyMin != null" >
-				#{moneyMin,jdbcType=INTEGER},
+			<if test="nightStartTime != null" >
+				#{nightStartTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="nightEndTime != null" >
+				#{nightEndTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="isClose != null" >
 				#{isClose,jdbcType=TINYINT},
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.business.Hotel" keyProperty="id" >
-		update hotel
+	<update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.business.Restaurant" >
+		update restaurant
 		<set >
 			<if test="name != null" >
 				name = #{name,jdbcType=VARCHAR},
@@ -131,14 +141,17 @@
 			<if test="score != null" >
 				score = #{score,jdbcType=DECIMAL},
 			</if>
-			<if test="brand != null" >
-				brand = #{brand,jdbcType=VARCHAR},
+			<if test="noonStartTime != null" >
+				noon_start_time = #{noonStartTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="lever != null" >
-				lever = #{lever,jdbcType=INTEGER},
+			<if test="noonEndTime != null" >
+				noon_end_time = #{noonEndTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="moneyMin != null" >
-				money_min = #{moneyMin,jdbcType=INTEGER},
+			<if test="nightStartTime != null" >
+				night_start_time = #{nightStartTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="nightEndTime != null" >
+				night_end_time = #{nightEndTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="isClose != null" >
 				is_close = #{isClose,jdbcType=TINYINT},
@@ -146,30 +159,25 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.business.Hotel" keyProperty="id" >
-		update hotel
+	<update id="updateByPrimaryKey" parameterType="com.tourism.entity.business.Restaurant" >
+		update restaurant
 		set name = #{name,jdbcType=VARCHAR},
 			brief_introduce = #{briefIntroduce,jdbcType=VARCHAR},
 			phone = #{phone,jdbcType=VARCHAR},
 			img_url = #{imgUrl,jdbcType=VARCHAR},
 			address = #{address,jdbcType=VARCHAR},
 			score = #{score,jdbcType=DECIMAL},
-			brand = #{brand,jdbcType=VARCHAR},
-			lever = #{lever,jdbcType=INTEGER},
-			money_min = #{moneyMin,jdbcType=INTEGER},
+			noon_start_time = #{noonStartTime,jdbcType=TIMESTAMP},
+			noon_end_time = #{noonEndTime,jdbcType=TIMESTAMP},
+			night_start_time = #{nightStartTime,jdbcType=TIMESTAMP},
+			night_end_time = #{nightEndTime,jdbcType=TIMESTAMP},
 			is_close = #{isClose,jdbcType=TINYINT}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<select id="selectBySelectiveAndPage" resultMap="BaseResultMap">
+	<select id="selectByOrderPage" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" />
-		from hotel
-		WHERE is_close = 0
-		    and lever in <foreach collection="leverList" item="lever" open="(" close=")" separator=",">#{lever}</foreach>
-			and concat(name,address,brand) LIKE "%"#{fuzzyKey}"%"
-			and (select min(price) from room where hotel.id = room.hotel_id) between #{moneyMin} and #{moneyMax}
+		from restaurant
+		where is_close = 0
 		order by #{sortKey}
 	</select>
-	<!--# 			and (select count(price) from room where hotel_id = hotel.id and price &gt;= #{moneyMin} and price &lt;= #{moneyMax}) != 0-->
-
-
 </mapper>

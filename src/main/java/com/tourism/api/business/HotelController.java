@@ -32,6 +32,15 @@ public class HotelController {
 		this.hotelService = hotelService;
 	}
 
+
+//	@GetMapping(value = "",produces = "application/json")
+//	public ResponseEntity<List<Hotel>> getHotelByKey(
+//			@RequestParam(required = false,defaultValue = "")@NotNull String fuzzyKey
+//	){
+//		List<Hotel> hotels = hotelService.getHotelsByKey(1, 3, fuzzyKey,sortKey, moneyMax, moneyMin, levers);
+//		return ResponseEntity.ok(hotels);
+//	}
+
 	@GetMapping(value = "",produces = "application/json")
 	@ApiOperation(value = "查询酒店信息列表",notes = "可选分页参数page和pageSize,fuzzyKey,money,lever",produces = "application/json")
 	@ApiImplicitParams({
@@ -41,7 +50,7 @@ public class HotelController {
 			@ApiImplicitParam(name = "sortKey",value = "排序的列",defaultValue = "score",dataType = "String",paramType = "query"),
 			@ApiImplicitParam(name = "moneyMin",value = "价格下限",defaultValue = "0",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "moneyMax",value = "价格上限",defaultValue = "1000000000",dataType = "int",paramType = "query"),
-			@ApiImplicitParam(name = "leverList",value = "星级列表",defaultValue = "0,1,2,3,4,5",dataType = "int",paramType = "query",type = "array",collectionFormat = "csv",allowMultiple=true),
+			@ApiImplicitParam(name = "levers",value = "星级列表",defaultValue = "0,1,2,3,4,5",dataType = "int",paramType = "query",type = "array",collectionFormat = "csv",allowMultiple=true),
 //			@ApiImplicitParam(name = "leverMax",value = "星级上限",defaultValue = "5",dataType = "int",paramType = "query")
 	})
 	public ResponseEntity<List<Hotel>> getHotelByKey(
@@ -51,13 +60,13 @@ public class HotelController {
 			@RequestParam(required = false,defaultValue = "score")@NotBlank String sortKey,
 			@RequestParam(required = false,defaultValue = "0")@Min(value = 0,message = "moneyMin应为正数") Integer moneyMin,
 			@RequestParam(required = false,defaultValue = "1000000000") Integer moneyMax,
-			@RequestParam(required = false,defaultValue = "0,1,2,3,4,5")@NotEmpty List<Integer> leverList
+			@RequestParam(required = false,defaultValue = "0,1,2,3,4,5")@NotEmpty List<Integer> levers
 //			@RequestParam(required = false,defaultValue = "5")@Max(value = 5,message = "leverMax应小于等于5") Integer leverMax
 	) throws ServletRequestOutOfBoundsException {
 		ExceptionUtil.isMaxAreMax(moneyMin,moneyMax,"价格");
 //		ExceptionUtil.isMaxAreMax(leverMin,leverMax,"星级");
-		log.info(leverList.toString());
-		List<Hotel> hotels = hotelService.getHotelsByKey(page, pageSize, fuzzyKey,sortKey, moneyMax, moneyMin, leverList);
+		log.info(levers.toString());
+		List<Hotel> hotels = hotelService.getHotelsByKey(page, pageSize, fuzzyKey,sortKey, moneyMax, moneyMin, levers);
 		log.info(fuzzyKey+" "+hotels);
 		return ResponseEntity.ok(hotels);
 	}

@@ -21,9 +21,22 @@ public class HotelService {
 		this.hotelMapper = hotelMapper;
 	}
 
-	public List<Hotel> getHotelsByKey(Integer page, Integer pageSize, String fuzzyKey,String sortKey, Integer moneyMax, Integer moneyMin, List<Integer> leverList) {
-
-		return hotelMapper.selectBySelectiveAndPage(fuzzyKey,sortKey,leverList,moneyMin,moneyMax,page,pageSize);
+	public List<Hotel> getHotelsByKey(
+			Integer page,
+			Integer pageSize,
+			String fuzzyKey,
+			String sortKey,
+			Integer moneyMax,
+			Integer moneyMin,
+			List<Integer> leverList) {
+		return hotelMapper.selectBySelectiveAndPage(
+				fuzzyKey,
+				sortKey,
+				leverList,
+				moneyMin,
+				moneyMax,
+				page,
+				pageSize);
 	}
 	@Transactional
 	public Hotel getHotelById(Integer hotelId){

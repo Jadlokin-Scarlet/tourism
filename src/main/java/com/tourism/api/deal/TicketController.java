@@ -45,7 +45,7 @@ public class TicketController {
 	})
 	public ResponseEntity<List<Ticket>> createOrUpdateHotel(
 			@PathVariable@Min(0) Integer scenicId,
-			@RequestBody @NotNull List<Ticket> tickets
+			@RequestBody@NotNull List<Ticket> tickets
 	){
 		if(tickets.isEmpty())return ResponseEntity.ok(tickets);
 		return ResponseEntity.ok(ticketService.createOrUpdateTickets(scenicId,tickets));

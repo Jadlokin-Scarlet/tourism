@@ -28,7 +28,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/tourism" userId="root" password=""/>
 
          <!--实体类生成的位置-->
-        <javaModelGenerator targetPackage="com.tourism.entity.DaoDto.new" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.tourism.entity.DaoDto" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -39,7 +39,7 @@
         </sqlMapGenerator>
 
         <!-- Mapper 接口文件的位置 -->
-        <javaClientGenerator targetPackage="com.tourism.mapper.new" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.tourism.mapper" targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
@@ -51,7 +51,8 @@
         <!--<table tableName="trip" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
         <!--<table tableName="trip_detail" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
         <!--<table tableName="order" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
-        <table tableName="car_shop" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="car" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="order_detail" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <!--<table tableName="car_shop" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="car" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
     </context>
 </generatorConfiguration>

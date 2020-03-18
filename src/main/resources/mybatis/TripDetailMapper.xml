@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tourism.mapper.TripDetailMapper">
+  <resultMap id="BaseResultMap" type="com.tourism.entity.DaoDto.TripDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="trip_id" jdbcType="INTEGER" property="tripId" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="business_id" jdbcType="INTEGER" property="businessId" />
+    <result column="deal_id" jdbcType="INTEGER" property="dealId" />
+    <result column="use_time" jdbcType="TIMESTAMP" property="useTime" />
+    <result column="recommend_cause" jdbcType="VARCHAR" property="recommendCause" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, trip_id, business_type, business_id, deal_id, use_time, recommend_cause
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trip_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from trip_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tourism.entity.DaoDto.TripDetail">
+    insert into trip_detail (id, trip_id, business_type, 
+      business_id, deal_id, use_time, 
+      recommend_cause
+      )
+    values (#{id,jdbcType=INTEGER}, #{tripId,jdbcType=INTEGER}, #{businessType,jdbcType=VARCHAR}, 
+      #{businessId,jdbcType=INTEGER}, #{dealId,jdbcType=INTEGER}, #{useTime,jdbcType=TIMESTAMP}, 
+      #{recommendCause,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tourism.entity.DaoDto.TripDetail">
+    insert into trip_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tripId != null">
+        trip_id,
+      </if>
+      <if test="businessType != null">
+        business_type,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="dealId != null">
+        deal_id,
+      </if>
+      <if test="useTime != null">
+        use_time,
+      </if>
+      <if test="recommendCause != null">
+        recommend_cause,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tripId != null">
+        #{tripId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="dealId != null">
+        #{dealId,jdbcType=INTEGER},
+      </if>
+      <if test="useTime != null">
+        #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recommendCause != null">
+        #{recommendCause,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tourism.entity.DaoDto.TripDetail">
+    update trip_detail
+    <set>
+      <if test="tripId != null">
+        trip_id = #{tripId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null">
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="dealId != null">
+        deal_id = #{dealId,jdbcType=INTEGER},
+      </if>
+      <if test="useTime != null">
+        use_time = #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recommendCause != null">
+        recommend_cause = #{recommendCause,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tourism.entity.DaoDto.TripDetail">
+    update trip_detail
+    set trip_id = #{tripId,jdbcType=INTEGER},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=INTEGER},
+      deal_id = #{dealId,jdbcType=INTEGER},
+      use_time = #{useTime,jdbcType=TIMESTAMP},
+      recommend_cause = #{recommendCause,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+	<select id="selectByTripId" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from trip_detail where trip_id = #{tripId}
+		order by use_time
+	</select>
+	<select id="selectAllByKeyAndPage" resultMap="BaseResultMap">
+		select * from trip_detail
+	</select>
+</mapper>

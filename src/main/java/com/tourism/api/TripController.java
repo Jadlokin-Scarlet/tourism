@@ -29,7 +29,7 @@ import java.util.List;
 @Validated
 @Slf4j
 public class TripController {
-	public interface TripAndBusinessDto extends Trip.TripDto,Business.BusinessBaseDto {}
+//	public interface TripAndBusinessDto extends Trip.TripDto,Business.BusinessBaseDto {}
 	private TripService tripService;
 
 	@Autowired
@@ -38,7 +38,7 @@ public class TripController {
 	}
 
 	@GetMapping(value = "",produces = "application/json")
-	@JsonView(TripAndBusinessDto.class)
+//	@JsonView(TripAndBusinessDto.class)
 	@ApiOperation(value = "查询行程信息列表",notes = "可选分页参数page和pageSize,fuzzyKey",produces = "application/json")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "page",value = "第几页",defaultValue = "1",dataType = "int",paramType = "query"),

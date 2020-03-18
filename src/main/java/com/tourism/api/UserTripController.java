@@ -1,10 +1,12 @@
 package com.tourism.api;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import com.tourism.entity.Business;
 import com.tourism.entity.DaoDto.Trip;
 import com.tourism.entity.DaoDto.TripDetail;
-import com.tourism.service.TripService;
+import com.tourism.entity.business.Order;
+import com.tourism.service.UserTripService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -28,16 +30,16 @@ import java.util.List;
 @RequestMapping(value = "/api/user/{userId}/trip",produces = "application/json")
 @Validated
 @Slf4j
-@JsonView(UserTripController.TripAndBusinessDto.class)
+//@JsonView(UserTripController.TripAndBusinessDto.class)
 public class UserTripController {
 
-	interface TripAndBusinessDto extends Trip.TripDto,Business.BusinessBaseDto {}
+//	interface TripAndBusinessDto extends Trip.TripDto,Business.BusinessBaseDto {}
 
-	private TripService tripService;
+	private UserTripService userTripService;
 
 	@Autowired
-	public UserTripController(TripService tripService) {
-		this.tripService = tripService;
+	public UserTripController(UserTripService userTripService) {
+		this.userTripService = userTripService;
 	}
 
 	@GetMapping("")
@@ -47,12 +49,12 @@ public class UserTripController {
 			@ApiImplicitParam(name = "page", value = "第几页", defaultValue = "1", dataType = "int", paramType = "query"),
 			@ApiImplicitParam(name = "pageSize", value = "每页长度", defaultValue = "10", dataType = "int", paramType = "query")
 	})
-	public ResponseEntity<List<Trip>> getUserAllTrip(
+	public ResponseEntity<List<Order>> getUserAllTrip(
 			@PathVariable@Min(0) Integer userId,
 			@RequestParam(required = false,defaultValue = "1")@Min(value = 1,message = "page应为正数") Integer page,
 			@RequestParam(required = false,defaultValue = "10")@Min(value = 1,message = "pageSize应为正数") Integer pageSize
 	){
-		return ResponseEntity.ok(tripService.getTripByKey(page,pageSize,"","id",userId));
+		return ResponseEntity.ok(userTripService.getTripByKey(page,pageSize,userId));
 	}
 
 	@GetMapping(value = "/nowTrip")
@@ -60,9 +62,9 @@ public class UserTripController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "userId",value = "用户id",required = true,dataType = "int",paramType = "path"),
 	})
-	public ResponseEntity<Trip> getUserTrip(@PathVariable@Min(1) Integer userId){
-		Trip trip = tripService.getUserTrip(userId);
-		return ResponseEntity.ok(trip);
+	public ResponseEntity<Order> getUserTrip(@PathVariable@Min(1) Integer userId){
+		Order userTrip = userTripService.getUserTrip(userId);
+		return ResponseEntity.ok(userTrip);
 	}
 
 	@PostMapping("/nowTrip/trip/{tripId}/useTime/{useTime}")
@@ -73,13 +75,13 @@ public class UserTripController {
 			@ApiImplicitParam(name = "tripId",value = "路线id",required = true,dataType = "int",paramType = "path"),
 			@ApiImplicitParam(name = "useTime",value = "出游时间",required = true,dataType = "Date",paramType = "path")
 	})
-	public ResponseEntity<Trip> setUserTrip(
+	public ResponseEntity<Order> setUserTrip(
 			@PathVariable@Min(1) Integer userId,
 			@PathVariable@Min(1) int tripId,
 			@PathVariable@DateTimeFormat(pattern = "yyyy-MM-dd") Date useTime
 	){
 //		log.warn(userId+" choose "+tripId);
-		return ResponseEntity.ok(tripService.changeTripToUserTrip(userId,tripId,useTime));
+		return ResponseEntity.ok(userTripService.changeTripToUserTrip(userId,tripId,useTime));
 	}
 
 	@DeleteMapping("/nowTrip")
@@ -87,29 +89,31 @@ public class UserTripController {
 	public ResponseEntity<Integer> deleteUserTrip(
 			@PathVariable@Min(1) Integer userId
 	){
-		Integer res = tripService.deleteUserTrip(userId);
+		Integer res = userTripService.deleteUserTrip(userId);
 		return ResponseEntity.ok(res);
 	}
 
-	@PostMapping("/nowTrip/tripItem")
-	@ApiOperation("添加行程条目")
-	@JsonView(UserTripController.TripAndBusinessDto.class)
-	public ResponseEntity<Trip> addItemToUserTrip(
-			@PathVariable Integer userId,
-			@PathVariable TripDetail tripItem
+	@PostMapping(value = "/nowTrip/tripItem/{businessType}/{businessId}/{dealId}/{useTime}",produces = "application/json")
+	@ApiOperation(value = "添加行程条目",produces = "application/json")
+	public ResponseEntity<Order> addItemToUserTrip(
+			@PathVariable@Min(1) Integer userId,
+			@PathVariable String businessType,
+			@PathVariable@Min(1) Integer businessId,
+			@PathVariable@Min(1) Integer dealId,
+			@PathVariable@DateTimeFormat(pattern = "yyyy-MM-dd") Date useTime
 	){
-		Trip trip = tripService.addTripItemToUserTrip(userId, tripItem);
-		return ResponseEntity.ok(trip);
+		Order order = userTripService.addTripItemToUserTrip(userId, businessType, businessId, dealId, useTime);
+		return ResponseEntity.ok(order);
 	}
 
-	@DeleteMapping("/nowTrip/tripItem")
+	@DeleteMapping("/nowTrip/tripItem/{tripItemId}")
 	@ApiOperation("删除行程条目")
-	public ResponseEntity<Trip> deleteItemToUserTrip(
+	public ResponseEntity<Order> deleteItemToUserTrip(
 			@PathVariable Integer userId,
 			@PathVariable Integer tripItemId
 	){
-		Trip trip = tripService.deleteItemToUserTrip(userId, tripItemId);
-		return ResponseEntity.ok(trip);
+		Order order = userTripService.deleteItemToUserTrip(userId, tripItemId);
+		return ResponseEntity.ok(order);
 	}
 
 
