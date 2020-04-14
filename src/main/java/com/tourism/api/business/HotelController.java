@@ -47,26 +47,30 @@ public class HotelController {
 			@ApiImplicitParam(name = "page",value = "第几页",defaultValue = "1",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "pageSize",value = "每页长度",defaultValue = "10",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "fuzzyKey",value = "模糊查询关键词",defaultValue = "杭州",dataType = "String",paramType = "query"),
-			@ApiImplicitParam(name = "sortKey",value = "排序的列",defaultValue = "score",dataType = "String",paramType = "query"),
+			@ApiImplicitParam(name = "sortKey",value = "排序的列",defaultValue = "default",dataType = "String",paramType = "query"),
 			@ApiImplicitParam(name = "moneyMin",value = "价格下限",defaultValue = "0",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "moneyMax",value = "价格上限",defaultValue = "1000000000",dataType = "int",paramType = "query"),
 			@ApiImplicitParam(name = "levers",value = "星级列表",defaultValue = "0,1,2,3,4,5",dataType = "int",paramType = "query",type = "array",collectionFormat = "csv",allowMultiple=true),
-//			@ApiImplicitParam(name = "leverMax",value = "星级上限",defaultValue = "5",dataType = "int",paramType = "query")
+			@ApiImplicitParam(name = "latitude",value = "纬度",defaultValue = "0",dataType = "double",paramType = "query"),
+			@ApiImplicitParam(name = "longitude",value = "经度",defaultValue = "0",dataType = "double",paramType = "query"),
+			//			@ApiImplicitParam(name = "leverMax",value = "星级上限",defaultValue = "5",dataType = "int",paramType = "query")
 	})
 	public ResponseEntity<List<Hotel>> getHotelByKey(
 			@RequestParam(required = false,defaultValue = "1")@Min(value = 1,message = "page应为正数") Integer page,
 			@RequestParam(required = false,defaultValue = "10")@Min(value = 1,message = "pageSize应为正数") Integer pageSize,
 			@RequestParam(required = false,defaultValue = "")@NotNull String fuzzyKey,
-			@RequestParam(required = false,defaultValue = "score")@NotBlank String sortKey,
+			@RequestParam(required = false,defaultValue = "default")@NotBlank String sortKey,
 			@RequestParam(required = false,defaultValue = "0")@Min(value = 0,message = "moneyMin应为正数") Integer moneyMin,
 			@RequestParam(required = false,defaultValue = "1000000000") Integer moneyMax,
-			@RequestParam(required = false,defaultValue = "0,1,2,3,4,5")@NotEmpty List<Integer> levers
+			@RequestParam(required = false,defaultValue = "0,1,2,3,4,5")@NotEmpty List<Integer> levers,
+			@RequestParam(required = false)Double latitude,
+			@RequestParam(required = false)Double longitude
 //			@RequestParam(required = false,defaultValue = "5")@Max(value = 5,message = "leverMax应小于等于5") Integer leverMax
 	) throws ServletRequestOutOfBoundsException {
 		ExceptionUtil.isMaxAreMax(moneyMin,moneyMax,"价格");
 //		ExceptionUtil.isMaxAreMax(leverMin,leverMax,"星级");
 		log.info(levers.toString());
-		List<Hotel> hotels = hotelService.getHotelsByKey(page, pageSize, fuzzyKey,sortKey, moneyMax, moneyMin, levers);
+		List<Hotel> hotels = hotelService.getHotelsByKey(page, pageSize, fuzzyKey,sortKey, moneyMax, moneyMin, levers, latitude, longitude);
 		log.info(fuzzyKey+" "+hotels);
 		return ResponseEntity.ok(hotels);
 	}

@@ -21,11 +21,23 @@ public interface HotelMapper {
     int updateByPrimaryKey(Hotel record);
 
     List<Hotel> selectBySelectiveAndPage(
-            @Param("fuzzyKey") String fuzzyKey,
-            @Param("sortKey") String sortKey,
-            @Param("leverList")List<Integer> leverList,
-            @Param("moneyMin")Integer moneyMin,
-            @Param("moneyMax")Integer moneyMax,
-            @Param("currPage")Integer page,
-            @Param("pageSize")Integer pageSize);
+			@Param("fuzzyKey") String fuzzyKey,
+			@Param("sortKey") String sortKey,
+			@Param("leverList") List<Integer> leverList,
+			@Param("moneyMin") Integer moneyMin,
+			@Param("moneyMax") Integer moneyMax,
+			@Param("latitude") Double latitude,
+			@Param("longitude") Double longitude,
+			@Param("currPage") Integer page,
+			@Param("pageSize") Integer pageSize);
+
+//	List<Hotel> selectBySelectiveSortDefaultAndPage(
+//			@Param("fuzzyKey") String fuzzyKey,
+//			@Param("leverList") List<Integer> leverList,
+//			@Param("moneyMin") Integer moneyMin,
+//			@Param("moneyMax") Integer moneyMax,
+//			@Param("latitude") Double latitude,
+//			@Param("longitude") Double longitude,
+//			@Param("currPage") Integer page,
+//			@Param("pageSize") Integer pageSize);
 }

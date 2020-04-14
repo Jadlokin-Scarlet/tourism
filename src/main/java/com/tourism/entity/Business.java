@@ -52,4 +52,10 @@ public class Business {
 	@JsonIgnore
 	@ApiModelProperty(hidden = true,example = "false")
 	private boolean isClose = false;
+
+	@ApiModelProperty("纬度")
+	private Double latitude;
+
+	@ApiModelProperty("经度")
+	private Double longitude;
 }

@@ -161,7 +161,8 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="selectBySelectiveAndPage" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" />
+		select <include refid="Base_Column_List" />,
+		latitude - #{latitude} + longitude - #{longitude} + score / 111  as `default`
 		from hotel
 		WHERE is_close = 0
 		    and lever in <foreach collection="leverList" item="lever" open="(" close=")" separator=",">#{lever}</foreach>

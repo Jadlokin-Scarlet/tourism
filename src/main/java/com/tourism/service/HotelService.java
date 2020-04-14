@@ -28,16 +28,32 @@ public class HotelService {
 			String sortKey,
 			Integer moneyMax,
 			Integer moneyMin,
-			List<Integer> leverList) {
+			List<Integer> leverList,
+			Double latitude,Double longitude) {
 		return hotelMapper.selectBySelectiveAndPage(
 				fuzzyKey,
 				sortKey,
 				leverList,
 				moneyMin,
 				moneyMax,
+				latitude,
+				longitude,
 				page,
 				pageSize);
 	}
+
+//	public List<Hotel> getHotelsByKeySortByDefault(Integer page, Integer pageSize, String fuzzyKey, Integer moneyMax, Integer moneyMin, List<Integer> leverList, Double latitude, Double longitude) {
+//		return hotelMapper.selectBySelectiveSortDefaultAndPage(
+//				fuzzyKey,
+//				leverList,
+//				moneyMin,
+//				moneyMax,
+//				latitude,
+//				longitude,
+//				page,
+//				pageSize);
+//	}
+
 	@Transactional
 	public Hotel getHotelById(Integer hotelId){
 		return hotelMapper.selectByPrimaryKey(hotelId);
@@ -63,4 +79,5 @@ public class HotelService {
 		hotelMapper.updateByPrimaryKeySelective(hotel);
 		return 0;
 	}
+
 }
